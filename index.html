@@ -25,6 +25,15 @@
     }
 
     /* === RESET === */
+    /* === SHARED LABEL UTILITY === */
+    .label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal-text);
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -111,14 +120,8 @@
       padding: clamp(4rem, 10vw, 8rem) 0 clamp(3rem, 7vw, 6rem);
       border-bottom: 1px solid var(--grey-light);
     }
-    .hero-eyebrow {
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--teal-text);
-      margin-bottom: 1.25rem;
-    }
+    .hero-eyebrow {font-size: 0.8rem;
+      margin-bottom: 1.25rem; }
     .hero-name {
       font-family: 'DM Serif Display', serif;
       font-size: clamp(3rem, 8vw, 6rem);
@@ -194,14 +197,7 @@
 
     /* === SECTION === */
     section { padding: var(--gap) 0; }
-    .section-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--teal-text);
-      margin-bottom: 1rem;
-    }
+    .section-label {margin-bottom: 1rem; }
     .section-title {
       font-family: 'DM Serif Display', serif;
       font-size: clamp(1.75rem, 4vw, 2.5rem);
@@ -242,13 +238,7 @@
       box-shadow: 0 8px 24px rgba(27,42,74,0.08);
       border-color: var(--teal);
     }
-    .case-tag {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--teal-text);
-    }
+    .case-tag {}
     .case-title {
       font-family: 'DM Serif Display', serif;
       font-size: 1.35rem;
@@ -288,16 +278,10 @@
       gap: 1.5rem;
     }
     .skill-group { }
-    .skill-group-title {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--teal-text);
+    .skill-group-title {letter-spacing: 0.1em;
       margin-bottom: 0.75rem;
       padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--grey-light);
-    }
+      border-bottom: 1px solid var(--grey-light); }
     .skill-list {
       list-style: none;
       display: flex;
@@ -355,7 +339,7 @@
       color: var(--white);
       padding: var(--gap) 0;
     }
-    .contact-section .section-label { color: var(--teal-text); }
+    .contact-section .section-label {color: var(--teal); } /* #2ABFBF on navy #1B2A4A = 6.30:1 — passes AA */
     .contact-section .section-title { color: var(--white); }
     .contact-section .section-intro { color: var(--grey-mid); }
     .contact-links {
@@ -429,7 +413,7 @@
     <!-- HERO -->
     <section class="hero" aria-labelledby="hero-heading">
       <div class="container">
-        <p class="hero-eyebrow">UX &amp; Web Strategy · Accessibility · SEO</p>
+        <p class="hero-eyebrow label">UX &amp; Web Strategy · Accessibility · SEO</p>
         <h1 class="hero-name" id="hero-heading">Stace Rice</h1>
         <p class="hero-title">Senior digital experience leader who bridges design vision, front-end development, and accessibility expertise to build web properties that perform, include, and endure.</p>
         <a href="#work" class="hero-cta" aria-label="View selected work">View Work</a>
@@ -459,13 +443,13 @@
     <!-- CASE STUDIES -->
     <section id="work" aria-labelledby="work-heading">
       <div class="container">
-        <p class="section-label">Selected Work</p>
+        <p class="section-label label">Selected Work</p>
         <h2 class="section-title" id="work-heading">Case Studies</h2>
         <p class="section-intro">A selection of projects spanning SEO strategy, accessibility programs, content systems, and digital experience design.</p>
         <div class="case-grid" role="list">
 
           <a href="case-study-email.html" class="case-card" role="listitem" aria-label="Email Design System case study">
-            <p class="case-tag">Content Systems · Email</p>
+            <p class="case-tag label">Content Systems · Email</p>
             <h3 class="case-title">Email Design System</h3>
             <p class="case-desc">Built a modular email component library that enabled non-technical marketing teams to assemble campaigns independently, eliminating developer bottlenecks and improving quality across the board.</p>
             <div class="case-metric">
@@ -475,7 +459,7 @@
           </a>
 
           <a href="case-study-seo.html" class="case-card" role="listitem" aria-label="SEO and Search Visibility case study">
-            <p class="case-tag">SEO · AEO · GEO</p>
+            <p class="case-tag label">SEO · AEO · GEO</p>
             <h3 class="case-title">Search Visibility Program</h3>
             <p class="case-desc">Defined and executed an enterprise SEO strategy including technical optimization, site architecture, schema markup, and emerging AI search optimization across institutional web properties.</p>
             <div class="case-metric">
@@ -485,7 +469,7 @@
           </a>
 
           <a href="case-study-accessibility.html" class="case-card" role="listitem" aria-label="Accessibility Program case study">
-            <p class="case-tag">Accessibility · WCAG · Section 508</p>
+            <p class="case-tag label">Accessibility · WCAG · Section 508</p>
             <h3 class="case-title">Accessibility Remediation Program</h3>
             <p class="case-desc">Established enterprise accessibility monitoring workflows, achieved WCAG compliance, and built a cross-functional education program that embedded inclusive design as a shared organizational value.</p>
             <div class="case-metric">
@@ -495,7 +479,7 @@
           </a>
 
           <a href="case-study-drupal.html" class="case-card" role="listitem" aria-label="Drupal API Integration case study">
-            <p class="case-tag">Drupal · API Integration</p>
+            <p class="case-tag label">Drupal · API Integration</p>
             <h3 class="case-title">Student Workflow Modernization</h3>
             <p class="case-desc">Implemented an Eduframe SIS API integration into Drupal 11, streamlining student enrollment workflows, reducing redundant communications, and improving system interoperability across departments.</p>
             <div class="case-metric">
@@ -505,7 +489,7 @@
           </a>
 
           <a href="case-study-governance.html" class="case-card" role="listitem" aria-label="Content Governance case study">
-            <p class="case-tag">Governance · Web Operations</p>
+            <p class="case-tag label">Governance · Web Operations</p>
             <h3 class="case-title">Content Governance Framework</h3>
             <p class="case-desc">Designed and implemented a unified content governance framework, intake workflow, and QA process across multiple divisions, enabling consistent brand standards and faster publishing at scale.</p>
             <div class="case-metric">
@@ -523,11 +507,11 @@
     <!-- SKILLS -->
     <section id="skills" aria-labelledby="skills-heading" style="background: var(--grey-light);">
       <div class="container">
-        <p class="section-label">Expertise</p>
+        <p class="section-label label">Expertise</p>
         <h2 class="section-title" id="skills-heading">Skills &amp; Tools</h2>
         <div class="skills-grid">
           <div class="skill-group">
-            <h3 class="skill-group-title">CMS &amp; Development</h3>
+            <h3 class="skill-group-title label">CMS &amp; Development</h3>
             <ul class="skill-list" role="list">
               <li>Drupal 10 / 11</li>
               <li>WordPress</li>
@@ -538,7 +522,7 @@
             </ul>
           </div>
           <div class="skill-group">
-            <h3 class="skill-group-title">SEO &amp; Optimization</h3>
+            <h3 class="skill-group-title label">SEO &amp; Optimization</h3>
             <ul class="skill-list" role="list">
               <li>Technical SEO</li>
               <li>Answer Engine Optimization (AEO)</li>
@@ -549,7 +533,7 @@
             </ul>
           </div>
           <div class="skill-group">
-            <h3 class="skill-group-title">Accessibility</h3>
+            <h3 class="skill-group-title label">Accessibility</h3>
             <ul class="skill-list" role="list">
               <li>WCAG 2.1 / 2.2 AA</li>
               <li>Section 508</li>
@@ -559,7 +543,7 @@
             </ul>
           </div>
           <div class="skill-group">
-            <h3 class="skill-group-title">Design &amp; Strategy</h3>
+            <h3 class="skill-group-title label">Design &amp; Strategy</h3>
             <ul class="skill-list" role="list">
               <li>UX Strategy · Journey Mapping</li>
               <li>Figma · Photoshop · Illustrator</li>
@@ -578,7 +562,7 @@
     <!-- ABOUT -->
     <section id="about" aria-labelledby="about-heading">
       <div class="container">
-        <p class="section-label">Background</p>
+        <p class="section-label label">Background</p>
         <h2 class="section-title" id="about-heading">About</h2>
         <div class="about-grid">
           <div class="about-text">
@@ -619,7 +603,7 @@
   <!-- CONTACT -->
   <section id="contact" class="contact-section" aria-labelledby="contact-heading">
     <div class="container">
-      <p class="section-label">Get in Touch</p>
+      <p class="section-label label">Get in Touch</p>
       <h2 class="section-title" id="contact-heading">Let's Work Together</h2>
       <p class="section-intro">Open to senior UX, web strategy, accessibility, and digital experience roles. Available for full-time, contract, and consulting engagements.</p>
       <div class="contact-links">

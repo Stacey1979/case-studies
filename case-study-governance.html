@@ -31,7 +31,7 @@
     .case-hero{padding:clamp(3rem,8vw,6rem) 0 clamp(2rem,5vw,4rem);border-bottom:1px solid var(--grey-light);}
     .back-link{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.85rem;font-weight:500;color:var(--text-muted);text-decoration:none;margin-bottom:2rem;transition:color 0.2s;}
     .back-link:hover{color: var(--teal-text);}
-    .case-tag{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color: var(--teal-text);margin-bottom:1rem;display:block;}
+    .case-tag {margin-bottom:1rem;display:block; }
     .case-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.5rem);color:var(--navy);line-height:1.1;margin-bottom:1.25rem;}
     .case-hero-desc{font-size:1.1rem;color:var(--text-muted);max-width:640px;}
     .metrics-bar{display:flex;flex-wrap:wrap;gap:2rem;padding:clamp(1.5rem,4vw,2.5rem) 0;border-bottom:1px solid var(--grey-light);}
@@ -47,7 +47,7 @@
     .case-content ul li::before{content:'→';position:absolute;left:0;color: var(--teal-text);font-size:0.85rem;top:0.1rem;}
     .case-sidebar{position:sticky;top:84px;display:flex;flex-direction:column;gap:1.5rem;}
     .sidebar-card{background:var(--grey-light);border-radius:var(--radius);padding:1.5rem;}
-    .sidebar-card h3{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color: var(--teal-text);margin-bottom:1rem;}
+    .sidebar-card h3 {letter-spacing:0.1em;margin-bottom:1rem; }
     .sidebar-card ul{list-style:none;display:flex;flex-direction:column;gap:0.4rem;}
     .sidebar-card ul li{font-size:0.875rem;color:var(--text-muted);}
     .placeholder-image{background:var(--grey-light);border-radius:var(--radius);border:2px dashed var(--grey-mid);display:flex;align-items:center;justify-content:center;padding:3rem 2rem;text-align:center;margin:1.5rem 0;}
@@ -57,7 +57,7 @@
     .next-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:1rem;}
     .next-card{background:var(--white);border-radius:var(--radius);padding:1.5rem;text-decoration:none;color:inherit;border:1px solid transparent;transition:border-color 0.2s,transform 0.2s;display:block;}
     .next-card:hover{border-color:var(--teal);transform:translateY(-2px);}
-    .next-card-tag{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color: var(--teal-text);display:block;margin-bottom:0.5rem;}
+    .next-card-tag {letter-spacing:0.1em;display:block;margin-bottom:0.5rem; }
     .next-card-title{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--navy);}
     footer{background:var(--navy);padding:1.5rem 0;text-align:center;}
     footer p{font-size:0.8rem;color:var(--grey-mid);}
@@ -84,7 +84,7 @@
     <header class="case-hero">
       <div class="container">
         <a href="index.html#work" class="back-link" aria-label="Back to all case studies">← All Work</a>
-        <span class="case-tag">Governance · Web Operations · Content Strategy</span>
+        <span class="case-tag label">Governance · Web Operations · Content Strategy</span>
         <h1>Content Governance Framework</h1>
         <p class="case-hero-desc">Designing and implementing a unified content governance framework across multiple divisions, replacing ad hoc publishing practices with consistent standards, clear intake processes, and measurably improved quality at scale.</p>
       </div>
@@ -186,19 +186,19 @@
       <h2 id="next-heading">More Work</h2>
       <div class="next-grid">
         <a href="case-study-email.html" class="next-card">
-          <span class="next-card-tag">Content Systems · Email</span>
+          <span class="next-card-tag label">Content Systems · Email</span>
           <span class="next-card-title">Email Design System</span>
         </a>
         <a href="case-study-seo.html" class="next-card">
-          <span class="next-card-tag">SEO · AEO · GEO</span>
+          <span class="next-card-tag label">SEO · AEO · GEO</span>
           <span class="next-card-title">Search Visibility Program</span>
         </a>
         <a href="case-study-accessibility.html" class="next-card">
-          <span class="next-card-tag">Accessibility · WCAG</span>
+          <span class="next-card-tag label">Accessibility · WCAG</span>
           <span class="next-card-title">Accessibility Remediation Program</span>
         </a>
         <a href="case-study-drupal.html" class="next-card">
-          <span class="next-card-tag">Drupal · API</span>
+          <span class="next-card-tag label">Drupal · API</span>
           <span class="next-card-title">Student Workflow Modernization</span>
         </a>
       </div>
