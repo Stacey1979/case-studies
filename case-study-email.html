@@ -12,6 +12,7 @@
       --navy:      #1B2A4A;
       --slate:     #2E4A7A;
       --teal:      #2ABFBF;
+      --teal-text: #147070;
       --grey-mid:  #8A9BB0;
       --grey-light:#F0F2F5;
       --white:     #FFFFFF;
@@ -25,8 +26,11 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.7; color: var(--text); background: var(--white); }
     img { max-width: 100%; display: block; }
-    a { color: inherit; }
-    a:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: var(--radius); }
+    a { color: inherit;
+    text-decoration: underline;
+    }
+    a:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: var(--radius); text-decoration: none;
+    }
 
     .skip-link { position: absolute; top: -100%; left: 1rem; background: var(--teal); color: var(--white); padding: 0.5rem 1rem; border-radius: var(--radius); font-weight: 600; z-index: 9999; text-decoration: none; }
     .skip-link:focus { top: 1rem; }
@@ -38,12 +42,13 @@
     .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--navy); text-decoration: none; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; letter-spacing: 0.03em; text-transform: uppercase; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--teal); }
+    .nav-links a:hover { color: var(--teal-text); text-decoration: none;
+    }
 
     .case-hero { padding: clamp(3rem, 8vw, 6rem) 0 clamp(2rem, 5vw, 4rem); border-bottom: 1px solid var(--grey-light); }
     .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); text-decoration: none; margin-bottom: 2rem; transition: color 0.2s; }
-    .back-link:hover { color: var(--teal); }
-    .case-tag { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 1rem; display: block; }
+    .back-link:hover { color: var(--teal-text); }
+    .case-tag { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-text); margin-bottom: 1rem; display: block; }
     .case-hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3.5rem); color: var(--navy); line-height: 1.1; margin-bottom: 1.25rem; }
     .case-hero-desc { font-size: 1.1rem; color: var(--text-muted); max-width: 640px; }
 
@@ -59,11 +64,11 @@
     .case-content p { color: var(--text-muted); margin-bottom: 0.75rem; font-size: 1rem; }
     .case-content ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.75rem; }
     .case-content ul li { color: var(--text-muted); padding-left: 1.25rem; position: relative; font-size: 1rem; }
-    .case-content ul li::before { content: '→'; position: absolute; left: 0; color: var(--teal); font-size: 0.85rem; top: 0.1rem; }
+    .case-content ul li::before { content: '→'; position: absolute; left: 0; color: var(--teal-text); font-size: 0.85rem; top: 0.1rem; }
 
     .case-sidebar { position: sticky; top: 84px; display: flex; flex-direction: column; gap: 1.5rem; }
     .sidebar-card { background: var(--grey-light); border-radius: var(--radius); padding: 1.5rem; }
-    .sidebar-card h3 { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 1rem; }
+    .sidebar-card h3 { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-text); margin-bottom: 1rem; }
     .sidebar-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
     .sidebar-card ul li { font-size: 0.875rem; color: var(--text-muted); }
 
@@ -75,7 +80,7 @@
     .next-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 1rem; }
     .next-card { background: var(--white); border-radius: var(--radius); padding: 1.5rem; text-decoration: none; color: inherit; border: 1px solid transparent; transition: border-color 0.2s, transform 0.2s; display: block; }
     .next-card:hover { border-color: var(--teal); transform: translateY(-2px); }
-    .next-card-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); display: block; margin-bottom: 0.5rem; }
+    .next-card-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-text); display: block; margin-bottom: 0.5rem; }
     .next-card-title { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--navy); }
 
     footer { background: var(--navy); padding: 1.5rem 0; text-align: center; }

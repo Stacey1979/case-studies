@@ -13,6 +13,7 @@
       --navy:      #1B2A4A;
       --slate:     #2E4A7A;
       --teal:      #2ABFBF;
+      --teal-text: #147070;
       --grey-mid:  #8A9BB0;
       --grey-light:#F0F2F5;
       --white:     #FFFFFF;
@@ -34,11 +35,14 @@
       background: var(--white);
     }
     img { max-width: 100%; display: block; }
-    a { color: inherit; }
+    a { color: inherit;
+    text-decoration: underline;
+    }
     a:focus-visible {
       outline: 2px solid var(--teal);
       outline-offset: 3px;
       border-radius: var(--radius);
+    text-decoration: none;
     }
 
     /* === SKIP LINK === */
@@ -99,7 +103,8 @@
       text-transform: uppercase;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--teal); }
+    .nav-links a:hover { color: var(--teal-text); text-decoration: none;
+    }
 
     /* === HERO === */
     .hero {
@@ -111,7 +116,7 @@
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--teal);
+      color: var(--teal-text);
       margin-bottom: 1.25rem;
     }
     .hero-name {
@@ -184,7 +189,8 @@
       letter-spacing: 0.02em;
       transition: background 0.2s;
     }
-    .hero-cta:hover { background: var(--slate); }
+    .hero-cta:hover { background: var(--slate); text-decoration: none;
+    }
 
     /* === SECTION === */
     section { padding: var(--gap) 0; }
@@ -193,7 +199,7 @@
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--teal);
+      color: var(--teal-text);
       margin-bottom: 1rem;
     }
     .section-title {
@@ -241,7 +247,7 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--teal);
+      color: var(--teal-text);
     }
     .case-title {
       font-family: 'DM Serif Display', serif;
@@ -287,7 +293,7 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--teal);
+      color: var(--teal-text);
       margin-bottom: 0.75rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid var(--grey-light);
@@ -336,7 +342,7 @@
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--teal);
+      color: var(--teal-text);
       background: rgba(42,191,191,0.08);
       padding: 0.2rem 0.5rem;
       border-radius: var(--radius);
@@ -349,7 +355,7 @@
       color: var(--white);
       padding: var(--gap) 0;
     }
-    .contact-section .section-label { color: var(--teal); }
+    .contact-section .section-label { color: var(--teal-text); }
     .contact-section .section-title { color: var(--white); }
     .contact-section .section-intro { color: var(--grey-mid); }
     .contact-links {
