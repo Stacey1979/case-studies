@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Content Governance Framework case study — Stace Rice">
+  <title>Content Governance Framework · Stace Rice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#1B2A4A; --slate:#2E4A7A; --teal:#2ABFBF; --grey-mid:#8A9BB0; --grey-light:#F0F2F5; --white:#FFFFFF; --text:#1B2A4A; --text-muted:#5A6A82; --radius:4px; --max-w:1100px; --gap:clamp(2rem,5vw,4rem); }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;font-size:1rem;line-height:1.7;color:var(--text);background:var(--white);}
+    img{max-width:100%;display:block;}
+    a{color:inherit;}
+    a:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:var(--radius);}
+    .skip-link{position:absolute;top:-100%;left:1rem;background:var(--teal);color:var(--white);padding:0.5rem 1rem;border-radius:var(--radius);font-weight:600;z-index:9999;text-decoration:none;}
+    .skip-link:focus{top:1rem;}
+    .container{width:100%;max-width:var(--max-w);margin:0 auto;padding:0 clamp(1.25rem,5vw,3rem);}
+    nav{position:sticky;top:0;background:var(--white);border-bottom:1px solid var(--grey-light);z-index:100;}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;}
+    .nav-logo{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--navy);text-decoration:none;}
+    .nav-links{display:flex;gap:2rem;list-style:none;}
+    .nav-links a{font-size:0.875rem;font-weight:500;color:var(--text-muted);text-decoration:none;letter-spacing:0.03em;text-transform:uppercase;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--teal);}
+    .case-hero{padding:clamp(3rem,8vw,6rem) 0 clamp(2rem,5vw,4rem);border-bottom:1px solid var(--grey-light);}
+    .back-link{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.85rem;font-weight:500;color:var(--text-muted);text-decoration:none;margin-bottom:2rem;transition:color 0.2s;}
+    .back-link:hover{color:var(--teal);}
+    .case-tag{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;display:block;}
+    .case-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.5rem);color:var(--navy);line-height:1.1;margin-bottom:1.25rem;}
+    .case-hero-desc{font-size:1.1rem;color:var(--text-muted);max-width:640px;}
+    .metrics-bar{display:flex;flex-wrap:wrap;gap:2rem;padding:clamp(1.5rem,4vw,2.5rem) 0;border-bottom:1px solid var(--grey-light);}
+    .metric-number{font-family:'DM Serif Display',serif;font-size:clamp(1.75rem,3vw,2.25rem);color:var(--slate);display:block;line-height:1;}
+    .metric-label{font-size:0.78rem;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);display:block;margin-top:0.2rem;}
+    .case-body{padding:var(--gap) 0;}
+    .case-grid{display:grid;grid-template-columns:2fr 1fr;gap:4rem;align-items:start;}
+    .case-content section{margin-bottom:2.5rem;}
+    .case-content h2{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:0.75rem;}
+    .case-content p{color:var(--text-muted);margin-bottom:0.75rem;font-size:1rem;}
+    .case-content ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:0.75rem;}
+    .case-content ul li{color:var(--text-muted);padding-left:1.25rem;position:relative;font-size:1rem;}
+    .case-content ul li::before{content:'→';position:absolute;left:0;color:var(--teal);font-size:0.85rem;top:0.1rem;}
+    .case-sidebar{position:sticky;top:84px;display:flex;flex-direction:column;gap:1.5rem;}
+    .sidebar-card{background:var(--grey-light);border-radius:var(--radius);padding:1.5rem;}
+    .sidebar-card h3{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;}
+    .sidebar-card ul{list-style:none;display:flex;flex-direction:column;gap:0.4rem;}
+    .sidebar-card ul li{font-size:0.875rem;color:var(--text-muted);}
+    .placeholder-image{background:var(--grey-light);border-radius:var(--radius);border:2px dashed var(--grey-mid);display:flex;align-items:center;justify-content:center;padding:3rem 2rem;text-align:center;margin:1.5rem 0;}
+    .placeholder-image p{font-size:0.85rem;color:var(--grey-mid);font-weight:500;}
+    .next-cases{background:var(--grey-light);padding:var(--gap) 0;}
+    .next-cases h2{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:1.5rem;}
+    .next-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:1rem;}
+    .next-card{background:var(--white);border-radius:var(--radius);padding:1.5rem;text-decoration:none;color:inherit;border:1px solid transparent;transition:border-color 0.2s,transform 0.2s;display:block;}
+    .next-card:hover{border-color:var(--teal);transform:translateY(-2px);}
+    .next-card-tag{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:0.5rem;}
+    .next-card-title{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--navy);}
+    footer{background:var(--navy);padding:1.5rem 0;text-align:center;}
+    footer p{font-size:0.8rem;color:var(--grey-mid);}
+    @media(max-width:768px){.nav-links{display:none;}.case-grid{grid-template-columns:1fr;}.case-sidebar{position:static;}.metrics-bar{gap:1.25rem;}}
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <nav aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo" aria-label="Stace Rice home">Stace Rice</a>
+        <ul class="nav-links" role="list">
+          <li><a href="index.html#work">Work</a></li>
+          <li><a href="index.html#skills">Skills</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="case-hero">
+      <div class="container">
+        <a href="index.html#work" class="back-link" aria-label="Back to all case studies">← All Work</a>
+        <span class="case-tag">Governance · Web Operations · Content Strategy</span>
+        <h1>Content Governance Framework</h1>
+        <p class="case-hero-desc">Designing and implementing a unified content governance framework across multiple divisions, replacing ad hoc publishing practices with consistent standards, clear intake processes, and measurably improved quality at scale.</p>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="metrics-bar" aria-label="Key outcomes">
+        <div class="metric">
+          <span class="metric-number">97.1</span>
+          <span class="metric-label">QA score achieved</span>
+        </div>
+        <div class="metric">
+          <span class="metric-number">3</span>
+          <span class="metric-label">Divisions unified under one standard</span>
+        </div>
+        <div class="metric">
+          <span class="metric-number">60%</span>
+          <span class="metric-label">Faster publishing workflows</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="case-body" aria-labelledby="case-body-heading">
+      <div class="container">
+        <div class="case-grid">
+          <div class="case-content">
+
+            <section aria-labelledby="problem-heading">
+              <h2 id="problem-heading">The Problem</h2>
+              <p>Multiple divisions were managing web content independently without shared standards, governance, or intake processes. The result was inconsistent brand execution, variable content quality, duplicated effort, and no systematic way to prioritize or track web requests across the organization. There was no single source of truth for how content should be structured, reviewed, or published.</p>
+            </section>
+
+            <div class="placeholder-image" role="img" aria-label="Placeholder for before state showing fragmented content workflows">
+              <p>🗂 Before state: fragmented content workflow across three divisions<br><em>Replace with actual workflow diagram</em></p>
+            </div>
+
+            <section aria-labelledby="approach-heading">
+              <h2 id="approach-heading">The Approach</h2>
+              <p>I audited content operations across all three divisions, mapping where inconsistencies were introduced, where requests stalled, and where quality standards were being applied unevenly. From there I designed a unified governance framework that established shared standards for taxonomy, URL structure, metadata, naming conventions, and publishing approval, then built the intake and prioritization workflow that gave teams a predictable, transparent process for submitting and tracking requests.</p>
+              <ul role="list">
+                <li>Content operations audit across all divisions to identify gaps and failure points</li>
+                <li>Unified taxonomy, URL structure, and metadata standards defined</li>
+                <li>Intake and prioritization workflow designed and documented</li>
+                <li>QA checklist built and embedded in the publishing process</li>
+                <li>Content author training developed and delivered across divisions</li>
+                <li>Governance documentation maintained as a living reference</li>
+              </ul>
+            </section>
+
+            <div class="placeholder-image" role="img" aria-label="Placeholder for governance documentation or intake workflow diagram">
+              <p>📐 Governance framework: intake workflow and publishing standards documentation<br><em>Replace with actual documentation screenshots</em></p>
+            </div>
+
+            <section aria-labelledby="outcome-heading">
+              <h2 id="outcome-heading">The Outcome</h2>
+              <p>Consistent brand and quality standards were established across all three divisions. The Siteimprove Quality Assurance score reached 97.1, publishing became faster and more predictable, and non-technical teams gained the confidence and tools to manage content independently within clear guardrails. The governance framework became the foundation for all subsequent web operations work across the organization.</p>
+            </section>
+
+          </div>
+
+          <aside class="case-sidebar" aria-label="Project details">
+            <div class="sidebar-card">
+              <h3>My Role</h3>
+              <ul role="list">
+                <li>Governance framework design</li>
+                <li>Intake workflow development</li>
+                <li>Standards documentation</li>
+                <li>QA process design</li>
+                <li>Content author training</li>
+              </ul>
+            </div>
+            <div class="sidebar-card">
+              <h3>Tools &amp; Skills</h3>
+              <ul role="list">
+                <li>Siteimprove</li>
+                <li>Drupal · WordPress</li>
+                <li>Content strategy</li>
+                <li>Information architecture</li>
+                <li>Process documentation</li>
+                <li>Stakeholder training</li>
+              </ul>
+            </div>
+            <div class="sidebar-card">
+              <h3>Organization</h3>
+              <ul role="list">
+                <li>University of Chicago</li>
+                <li>3 divisions</li>
+                <li>2012 – 2026</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="next-cases" aria-labelledby="next-heading">
+    <div class="container">
+      <h2 id="next-heading">More Work</h2>
+      <div class="next-grid">
+        <a href="case-study-email.html" class="next-card">
+          <span class="next-card-tag">Content Systems · Email</span>
+          <span class="next-card-title">Email Design System</span>
+        </a>
+        <a href="case-study-seo.html" class="next-card">
+          <span class="next-card-tag">SEO · AEO · GEO</span>
+          <span class="next-card-title">Search Visibility Program</span>
+        </a>
+        <a href="case-study-accessibility.html" class="next-card">
+          <span class="next-card-tag">Accessibility · WCAG</span>
+          <span class="next-card-title">Accessibility Remediation Program</span>
+        </a>
+        <a href="case-study-drupal.html" class="next-card">
+          <span class="next-card-tag">Drupal · API</span>
+          <span class="next-card-title">Student Workflow Modernization</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <p>© 2026 Stace Rice · Built with semantic HTML and CSS · WCAG 2.1 AA compliant</p>
+    </div>
+  </footer>
+</body>
+</html>

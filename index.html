@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Stace Rice — Senior UX and Web Strategist specializing in accessibility, SEO, and digital experience design.">
+  <title>Stace Rice — UX & Web Strategist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* === TOKENS === */
+    :root {
+      --navy:      #1B2A4A;
+      --slate:     #2E4A7A;
+      --teal:      #2ABFBF;
+      --grey-mid:  #8A9BB0;
+      --grey-light:#F0F2F5;
+      --white:     #FFFFFF;
+      --text:      #1B2A4A;
+      --text-muted:#5A6A82;
+      --radius:    4px;
+      --max-w:     1100px;
+      --gap:       clamp(2rem, 5vw, 4rem);
+    }
+
+    /* === RESET === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--white);
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    a:focus-visible {
+      outline: 2px solid var(--teal);
+      outline-offset: 3px;
+      border-radius: var(--radius);
+    }
+
+    /* === SKIP LINK === */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--teal);
+      color: var(--white);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      z-index: 9999;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* === LAYOUT === */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 5vw, 3rem);
+    }
+
+    /* === NAV === */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--grey-light);
+      z-index: 100;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: var(--navy);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+
+    /* === HERO === */
+    .hero {
+      padding: clamp(4rem, 10vw, 8rem) 0 clamp(3rem, 7vw, 6rem);
+      border-bottom: 1px solid var(--grey-light);
+    }
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.25rem;
+    }
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1.05;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    .hero-name::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      height: 3px;
+      width: 0;
+      background: var(--teal);
+      border-radius: 2px;
+      animation: underline-draw 0.8s ease forwards 0.3s;
+    }
+    @keyframes underline-draw {
+      to { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-name::after { animation: none; width: 100%; }
+    }
+    .hero-title {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--text-muted);
+      font-weight: 400;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+    .stat-item { }
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      color: var(--slate);
+      line-height: 1;
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+      display: block;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--navy);
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+    }
+    .hero-cta:hover { background: var(--slate); }
+
+    /* === SECTION === */
+    section { padding: var(--gap) 0; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+    .section-intro {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin-bottom: 3rem;
+      font-size: 1.05rem;
+    }
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--grey-light);
+    }
+
+    /* === CASE STUDIES === */
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+      gap: 1.5rem;
+    }
+    .case-card {
+      background: var(--grey-light);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid transparent;
+    }
+    .case-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(27,42,74,0.08);
+      border-color: var(--teal);
+    }
+    .case-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+    .case-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+    .case-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .case-metric {
+      display: inline-block;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: var(--slate);
+      border-top: 1px solid var(--grey-mid);
+      padding-top: 0.75rem;
+      width: 100%;
+    }
+    .case-metric span {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 0.15rem;
+    }
+
+    /* === SKILLS === */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+      gap: 1.5rem;
+    }
+    .skill-group { }
+    .skill-group-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--grey-light);
+    }
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .skill-list li {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* === ABOUT === */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+    .about-credentials { }
+    .credential-item {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--grey-light);
+    }
+    .credential-item:first-child { border-top: 1px solid var(--grey-light); }
+    .credential-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--navy);
+    }
+    .credential-org {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .credential-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--teal);
+      background: rgba(42,191,191,0.08);
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius);
+      margin-top: 0.25rem;
+    }
+
+    /* === CONTACT === */
+    .contact-section {
+      background: var(--navy);
+      color: var(--white);
+      padding: var(--gap) 0;
+    }
+    .contact-section .section-label { color: var(--teal); }
+    .contact-section .section-title { color: var(--white); }
+    .contact-section .section-intro { color: var(--grey-mid); }
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact-link:hover {
+      border-color: var(--teal);
+      background: rgba(42,191,191,0.08);
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+    footer p {
+      font-size: 0.8rem;
+      color: var(--grey-mid);
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-stats { gap: 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .hero-stats { flex-direction: column; gap: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- NAV -->
+  <nav aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo" aria-label="Stace Rice home">Stace Rice</a>
+        <ul class="nav-links" role="list">
+          <li><a href="#work">Work</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <p class="hero-eyebrow">UX &amp; Web Strategy · Accessibility · SEO</p>
+        <h1 class="hero-name" id="hero-heading">Stace Rice</h1>
+        <p class="hero-title">Senior digital experience leader who bridges design vision, front-end development, and accessibility expertise to build web properties that perform, include, and endure.</p>
+        <a href="#work" class="hero-cta" aria-label="View selected work">View Work</a>
+        <div class="hero-stats" aria-label="Key outcomes">
+          <div class="stat-item">
+            <span class="stat-number">67%</span>
+            <span class="stat-label">Organic traffic lift</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">60%</span>
+            <span class="stat-label">Faster production</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">93.8</span>
+            <span class="stat-label">SEO score vs 83.1 benchmark</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">53.2%</span>
+            <span class="stat-label">Email open rate</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- CASE STUDIES -->
+    <section id="work" aria-labelledby="work-heading">
+      <div class="container">
+        <p class="section-label">Selected Work</p>
+        <h2 class="section-title" id="work-heading">Case Studies</h2>
+        <p class="section-intro">A selection of projects spanning SEO strategy, accessibility programs, content systems, and digital experience design.</p>
+        <div class="case-grid" role="list">
+
+          <a href="case-study-email.html" class="case-card" role="listitem" aria-label="Email Design System case study">
+            <p class="case-tag">Content Systems · Email</p>
+            <h3 class="case-title">Email Design System</h3>
+            <p class="case-desc">Built a modular email component library that enabled non-technical marketing teams to assemble campaigns independently, eliminating developer bottlenecks and improving quality across the board.</p>
+            <div class="case-metric">
+              60% faster production
+              <span>30% fewer errors · 53.2% open rate</span>
+            </div>
+          </a>
+
+          <a href="case-study-seo.html" class="case-card" role="listitem" aria-label="SEO and Search Visibility case study">
+            <p class="case-tag">SEO · AEO · GEO</p>
+            <h3 class="case-title">Search Visibility Program</h3>
+            <p class="case-desc">Defined and executed an enterprise SEO strategy including technical optimization, site architecture, schema markup, and emerging AI search optimization across institutional web properties.</p>
+            <div class="case-metric">
+              67% organic traffic lift
+              <span>SEO score 93.8 vs industry benchmark 83.1</span>
+            </div>
+          </a>
+
+          <a href="case-study-accessibility.html" class="case-card" role="listitem" aria-label="Accessibility Program case study">
+            <p class="case-tag">Accessibility · WCAG · Section 508</p>
+            <h3 class="case-title">Accessibility Remediation Program</h3>
+            <p class="case-desc">Established enterprise accessibility monitoring workflows, achieved WCAG compliance, and built a cross-functional education program that embedded inclusive design as a shared organizational value.</p>
+            <div class="case-metric">
+              +16 points accessibility score
+              <span>QA score raised from 84.3 to 97.1</span>
+            </div>
+          </a>
+
+          <a href="case-study-drupal.html" class="case-card" role="listitem" aria-label="Drupal API Integration case study">
+            <p class="case-tag">Drupal · API Integration</p>
+            <h3 class="case-title">Student Workflow Modernization</h3>
+            <p class="case-desc">Implemented an Eduframe SIS API integration into Drupal 11, streamlining student enrollment workflows, reducing redundant communications, and improving system interoperability across departments.</p>
+            <div class="case-metric">
+              Reduced clicks to enroll
+              <span>Eliminated redundant email workflows</span>
+            </div>
+          </a>
+
+          <a href="case-study-governance.html" class="case-card" role="listitem" aria-label="Content Governance case study">
+            <p class="case-tag">Governance · Web Operations</p>
+            <h3 class="case-title">Content Governance Framework</h3>
+            <p class="case-desc">Designed and implemented a unified content governance framework, intake workflow, and QA process across multiple divisions, enabling consistent brand standards and faster publishing at scale.</p>
+            <div class="case-metric">
+              QA score 97.1
+              <span>Consistent standards across 3 divisions</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- SKILLS -->
+    <section id="skills" aria-labelledby="skills-heading" style="background: var(--grey-light);">
+      <div class="container">
+        <p class="section-label">Expertise</p>
+        <h2 class="section-title" id="skills-heading">Skills &amp; Tools</h2>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h3 class="skill-group-title">CMS &amp; Development</h3>
+            <ul class="skill-list" role="list">
+              <li>Drupal 10 / 11</li>
+              <li>WordPress</li>
+              <li>Composer · Pantheon</li>
+              <li>Git · GitHub · Docker · Lando</li>
+              <li>HTML · CSS · Sass · Twig</li>
+              <li>API Integration (REST/JSON)</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3 class="skill-group-title">SEO &amp; Optimization</h3>
+            <ul class="skill-list" role="list">
+              <li>Technical SEO</li>
+              <li>Answer Engine Optimization (AEO)</li>
+              <li>Generative Engine Optimization (GEO)</li>
+              <li>BrightEdge (Certified)</li>
+              <li>Google Search Console · GA4</li>
+              <li>A/B Testing · CRO</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3 class="skill-group-title">Accessibility</h3>
+            <ul class="skill-list" role="list">
+              <li>WCAG 2.1 / 2.2 AA</li>
+              <li>Section 508</li>
+              <li>Siteimprove</li>
+              <li>Digital document remediation</li>
+              <li>IAAP Member · CPWA Candidate</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3 class="skill-group-title">Design &amp; Strategy</h3>
+            <ul class="skill-list" role="list">
+              <li>UX Strategy · Journey Mapping</li>
+              <li>Figma · Photoshop · Illustrator</li>
+              <li>Content Governance</li>
+              <li>Web Operations &amp; QA</li>
+              <li>Stakeholder Management</li>
+              <li>Cross-functional Team Leadership</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ABOUT -->
+    <section id="about" aria-labelledby="about-heading">
+      <div class="container">
+        <p class="section-label">Background</p>
+        <h2 class="section-title" id="about-heading">About</h2>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>I am a senior digital experience leader with over 15 years of experience owning web strategy, accessibility programs, and content operations across complex, multi-stakeholder environments.</p>
+            <p>I work at the intersection of design, development, and strategy — comfortable moving between executive-level roadmap conversations and hands-on implementation. I am known for building systems and governance frameworks that outlast my direct involvement and give teams the tools to do their best work independently.</p>
+            <p>Accessibility is a through-line in everything I do, not as a compliance checkbox but as a foundational design principle. I am an active IAAP member currently pursuing my CPWA certification.</p>
+          </div>
+          <div class="about-credentials" aria-label="Education and certifications">
+            <div class="credential-item">
+              <p class="credential-title">Master of Arts, Digital Media</p>
+              <p class="credential-org">University of Denver</p>
+            </div>
+            <div class="credential-item">
+              <p class="credential-title">BrightEdge Certified</p>
+              <p class="credential-org">SEO · AEO · GEO</p>
+              <span class="credential-badge">Certified</span>
+            </div>
+            <div class="credential-item">
+              <p class="credential-title">CPWA Candidate</p>
+              <p class="credential-org">IAAP — International Association of Accessibility Professionals</p>
+              <span class="credential-badge">In Progress</span>
+            </div>
+            <div class="credential-item">
+              <p class="credential-title">Advanced Project Management</p>
+              <p class="credential-org">University of Chicago</p>
+            </div>
+            <div class="credential-item">
+              <p class="credential-title">Conscious Leadership &amp; Team Management</p>
+              <p class="credential-org">University of Chicago</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section" aria-labelledby="contact-heading">
+    <div class="container">
+      <p class="section-label">Get in Touch</p>
+      <h2 class="section-title" id="contact-heading">Let's Work Together</h2>
+      <p class="section-intro">Open to senior UX, web strategy, accessibility, and digital experience roles. Available for full-time, contract, and consulting engagements.</p>
+      <div class="contact-links">
+        <a href="mailto:stace.in.dev@gmail.com" class="contact-link" aria-label="Send email to Stace Rice">
+          ✉ stace.in.dev@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/staceycrice" class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="View Stace Rice on LinkedIn (opens in new tab)">
+          ↗ LinkedIn
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <p>© 2026 Stace Rice · Built with semantic HTML and CSS · WCAG 2.1 AA compliant</p>
+    </div>
+  </footer>
+
+</body>
+</html>
