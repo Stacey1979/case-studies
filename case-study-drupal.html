@@ -13,6 +13,7 @@
     html{scroll-behavior:smooth;}
     body{font-family:'Inter',sans-serif;font-size:1rem;line-height:1.7;color:var(--text);background:var(--white);}
     img{max-width:100%;display:block;}
+    figcaption{font-size:0.78rem;color:var(--text-muted);margin-top:0.5rem;margin-bottom:1.5rem;line-height:1.5;}
     a{color: inherit;
     text-decoration: underline;
     }
@@ -152,7 +153,7 @@
                   <div class="flow-step"><div class="flow-dot flow-dot-b">6</div><div class="flow-step-body"><div class="flow-step-label">Complete long registration form</div><div class="flow-step-sub">Many required fields including personal info, address, demographics, emergency contact, and more</div><span class="flow-tag flow-tag-pain">High friction</span></div></div>
                   <div class="flow-arrow">↓</div>
                   <div class="flow-step"><div class="flow-dot flow-dot-b">7</div><div class="flow-step-body"><div class="flow-step-label">Complete payment process</div><div class="flow-step-sub">Separate payment step after the registration form</div><span class="flow-tag flow-tag-pain">Multi-step checkout</span></div></div>
-                  <div class="flow-outcome flow-outcome-before"><div class="flow-outcome-label">Before: 7 steps</div>Context switches, hidden section info, long registration form, and multi-step checkout at every stage.</div>
+                  <div class="flow-outcome flow-outcome-before"><div class="flow-outcome-label">Before: 7 steps</div>A manual, friction-heavy process with context switches, hidden section information, a long registration form, and a multi-step checkout.</div>
                 </div>
                 <div class="flow-col flow-col-after">
                   <div class="flow-col-head">After — Drupal + Eduframe API</div>
@@ -163,7 +164,7 @@
                   <div class="flow-step"><div class="flow-dot flow-dot-a">3</div><div class="flow-step-body"><div class="flow-step-label">Redirected with section pre-loaded</div><div class="flow-step-sub">User lands in the new system with the selected section already in cart — no searching or re-selecting</div><span class="flow-tag flow-tag-win">Zero re-entry</span></div></div>
                   <div class="flow-arrow">↓</div>
                   <div class="flow-step"><div class="flow-dot flow-dot-a">4</div><div class="flow-step-body"><div class="flow-step-label">Complete simple payment</div><div class="flow-step-sub">Only name and email required — streamlined single-step checkout with no long form</div><span class="flow-tag flow-tag-win">Minimal friction</span></div></div>
-                  <div class="flow-outcome flow-outcome-after"><div class="flow-outcome-label">After: 4 steps</div>All section info surfaced upfront via API, pre-loaded cart on redirect, and name and email only to complete enrollment.</div>
+                  <div class="flow-outcome flow-outcome-after"><div class="flow-outcome-label">After: 4 steps</div>A streamlined experience with all section information surfaced upfront via API, the selected section pre-loaded in cart on redirect, and only name and email required to complete enrollment.</div>
                 </div>
               </div>
               <figcaption>Before and after enrollment workflow. The Eduframe SIS API integration reduced enrollment from 7 steps to 4, eliminating context switches and form friction.</figcaption>
