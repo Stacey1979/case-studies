@@ -8,16 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root { --navy:#1B2A4A; --slate:#2E4A7A; --teal:#2ABFBF; --teal-text:#147070; --grey-mid:#8A9BB0; --grey-light:#F0F2F5; --white:#FFFFFF; --text:#1B2A4A; --text-muted:#5A6A82; --radius:4px; --max-w:1100px; --gap:clamp(2rem,5vw,4rem); }
+    :root{--navy:#1B2A4A;--slate:#2E4A7A;--teal:#2ABFBF;--teal-text:#147070;--grey-mid:#8A9BB0;--grey-light:#F0F2F5;--white:#FFFFFF;--text:#1B2A4A;--text-muted:#5A6A82;--radius:4px;--max-w:1100px;--gap:clamp(2rem,5vw,4rem);}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;}
     body{font-family:'Inter',sans-serif;font-size:1rem;line-height:1.7;color:var(--text);background:var(--white);}
     img{max-width:100%;display:block;}
-    a{color: inherit;
-    text-decoration: underline;
-    }
-    a:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:var(--radius);text-decoration: none;
-    }
+    a{color:inherit;text-decoration:underline;}
+    a:hover{text-decoration:none;}
+    a:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:var(--radius);text-decoration:none;}
     .skip-link{position:absolute;top:-100%;left:1rem;background:var(--teal);color:var(--white);padding:0.5rem 1rem;border-radius:var(--radius);font-weight:600;z-index:9999;text-decoration:none;}
     .skip-link:focus{top:1rem;}
     .container{width:100%;max-width:var(--max-w);margin:0 auto;padding:0 clamp(1.25rem,5vw,3rem);}
@@ -26,12 +24,12 @@
     .nav-logo{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--navy);text-decoration:none;}
     .nav-links{display:flex;gap:2rem;list-style:none;}
     .nav-links a{font-size:0.875rem;font-weight:500;color:var(--text-muted);text-decoration:none;letter-spacing:0.03em;text-transform:uppercase;transition:color 0.2s;}
-    .nav-links a:hover{color: var(--teal-text);text-decoration: none;
-    }
+    .nav-links a:hover{color:var(--teal-text);}
     .case-hero{padding:clamp(3rem,8vw,6rem) 0 clamp(2rem,5vw,4rem);border-bottom:1px solid var(--grey-light);}
     .back-link{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.85rem;font-weight:500;color:var(--text-muted);text-decoration:none;margin-bottom:2rem;transition:color 0.2s;}
-    .back-link:hover{color: var(--teal-text);}
-    .case-tag {margin-bottom:1rem;display:block; }
+    .back-link:hover{color:var(--teal-text);}
+    .label{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal-text);}
+    .case-tag{margin-bottom:1rem;display:block;}
     .case-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.5rem);color:var(--navy);line-height:1.1;margin-bottom:1.25rem;}
     .case-hero-desc{font-size:1.1rem;color:var(--text-muted);max-width:640px;}
     .metrics-bar{display:flex;flex-wrap:wrap;gap:2rem;padding:clamp(1.5rem,4vw,2.5rem) 0;border-bottom:1px solid var(--grey-light);}
@@ -44,20 +42,27 @@
     .case-content p{color:var(--text-muted);margin-bottom:0.75rem;font-size:1rem;}
     .case-content ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:0.75rem;}
     .case-content ul li{color:var(--text-muted);padding-left:1.25rem;position:relative;font-size:1rem;}
-    .case-content ul li::before{content:'→';position:absolute;left:0;color: var(--teal-text);font-size:0.85rem;top:0.1rem;}
+    .case-content ul li::before{content:'→';position:absolute;left:0;color:var(--teal-text);font-size:0.85rem;top:0.1rem;}
     .case-sidebar{position:sticky;top:84px;display:flex;flex-direction:column;gap:1.5rem;}
     .sidebar-card{background:var(--grey-light);border-radius:var(--radius);padding:1.5rem;}
-    .sidebar-card h3 {letter-spacing:0.1em;margin-bottom:1rem; }
+    .sidebar-card h3{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal-text);margin-bottom:1rem;}
     .sidebar-card ul{list-style:none;display:flex;flex-direction:column;gap:0.4rem;}
     .sidebar-card ul li{font-size:0.875rem;color:var(--text-muted);}
-    .placeholder-image{background:var(--grey-light);border-radius:var(--radius);border:2px dashed var(--grey-mid);display:flex;align-items:center;justify-content:center;padding:3rem 2rem;text-align:center;margin:1.5rem 0;}
-    .placeholder-image p{font-size:0.85rem;color:var(--grey-mid);font-weight:500;}
+    .chart-block{background:var(--grey-light);border-radius:var(--radius);padding:1.25rem;margin:1.5rem 0;}
+    .chart-metrics{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1.25rem;}
+    .chart-metric{background:var(--white);border-radius:var(--radius);padding:0.75rem 1rem;flex:1;min-width:90px;}
+    .chart-metric-label{font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);margin-bottom:3px;}
+    .chart-metric-value{font-size:1.25rem;font-weight:600;color:var(--navy);}
+    .chart-legend{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:0.75rem;}
+    .chart-legend-item{display:flex;align-items:center;gap:6px;font-size:0.75rem;color:var(--text-muted);}
+    .legend-swatch{width:18px;height:2px;border-radius:2px;}
+    figcaption{font-size:0.75rem;color:var(--text-muted);margin-top:0.75rem;line-height:1.5;}
     .next-cases{background:var(--grey-light);padding:var(--gap) 0;}
     .next-cases h2{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:1.5rem;}
     .next-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:1rem;}
     .next-card{background:var(--white);border-radius:var(--radius);padding:1.5rem;text-decoration:none;color:inherit;border:1px solid transparent;transition:border-color 0.2s,transform 0.2s;display:block;}
-    .next-card:hover{border-color:var(--teal);transform:translateY(-2px);}
-    .next-card-tag {letter-spacing:0.1em;display:block;margin-bottom:0.5rem; }
+    .next-card:hover{border-color:var(--teal);transform:translateY(-2px);text-decoration:none;}
+    .next-card-tag{display:block;margin-bottom:0.5rem;}
     .next-card-title{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--navy);}
     footer{background:var(--navy);padding:1.5rem 0;text-align:center;}
     footer p{font-size:0.8rem;color:var(--grey-mid);}
@@ -86,28 +91,19 @@
         <a href="index.html#work" class="back-link" aria-label="Back to all case studies">← All Work</a>
         <span class="case-tag label">SEO · Answer Engine Optimization · GEO</span>
         <h1>Search Visibility Program</h1>
-        <p class="case-hero-desc">Defining and executing an enterprise search strategy that drove measurable organic growth and positioned institutional web properties ahead of industry benchmarks — then evolving that strategy as AI-driven search reshaped how content gets discovered.</p>
+        <p class="case-hero-desc">Defining and executing an enterprise search strategy that drove measurable organic growth and positioned institutional web properties ahead of industry benchmarks, then evolving that strategy as AI-driven search reshaped how content gets discovered.</p>
       </div>
     </header>
 
     <div class="container">
       <div class="metrics-bar" aria-label="Key outcomes">
-        <div class="metric">
-          <span class="metric-number">67%</span>
-          <span class="metric-label">Organic traffic lift, year one</span>
-        </div>
-        <div class="metric">
-          <span class="metric-number">93.8</span>
-          <span class="metric-label">SEO score achieved</span>
-        </div>
-        <div class="metric">
-          <span class="metric-number">83.1</span>
-          <span class="metric-label">Education industry benchmark</span>
-        </div>
+        <div class="metric"><span class="metric-number">67%</span><span class="metric-label">Organic traffic lift, year one</span></div>
+        <div class="metric"><span class="metric-number">93.8</span><span class="metric-label">SEO score achieved</span></div>
+        <div class="metric"><span class="metric-number">83.1</span><span class="metric-label">Education industry benchmark</span></div>
       </div>
     </div>
 
-    <section class="case-body" aria-labelledby="case-body-heading">
+    <section class="case-body">
       <div class="container">
         <div class="case-grid">
           <div class="case-content">
@@ -117,9 +113,23 @@
               <p>Institutional web properties were underperforming in search, with no systematic approach to technical SEO, content optimization, or performance monitoring. There was no baseline measurement, no governance around metadata or site architecture, and no strategy for capturing organic traffic at scale.</p>
             </section>
 
-            <figure style="margin: 1.5rem 0;">
-              <iframe id="seoChartFrame" src="seo-score-chart.html" title="SEO score trajectory chart showing improvement from 87.0 to 93.8, surpassing the education industry benchmark of 83.1 by over 10 points" style="width: 100%; height: 480px; border: none; border-radius: 4px; display: block; overflow: hidden;" scrolling="no" loading="lazy" onload="this.style.height=(this.contentDocument.body.scrollHeight+2)+'px'"></iframe>
-              <figcaption style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.5rem;">SEO score trajectory across six reporting periods, measured via BrightEdge. Final score of 93.8 surpasses the education industry benchmark of 83.1 by over 10 points.</figcaption>
+            <figure>
+              <div class="chart-block">
+                <div class="chart-metrics" aria-label="SEO score key figures">
+                  <div class="chart-metric"><div class="chart-metric-label">Starting score</div><div class="chart-metric-value">87.0</div></div>
+                  <div class="chart-metric"><div class="chart-metric-label">Industry benchmark</div><div class="chart-metric-value">83.1</div></div>
+                  <div class="chart-metric"><div class="chart-metric-label">Score achieved</div><div class="chart-metric-value">93.8</div></div>
+                  <div class="chart-metric"><div class="chart-metric-label">Above benchmark</div><div class="chart-metric-value">+10.7</div></div>
+                </div>
+                <div class="chart-legend" aria-hidden="true">
+                  <div class="chart-legend-item"><div class="legend-swatch" style="background:#2a78d6;"></div>UChicago SEO score</div>
+                  <div class="chart-legend-item"><div class="legend-swatch" style="border-top:2px dashed #e34948;height:0;"></div>Education benchmark (83.1)</div>
+                </div>
+                <div style="position:relative;width:100%;height:240px;">
+                  <canvas id="seoChart" role="img" aria-label="Line chart showing SEO score rising from 87.0 at baseline to 93.8 at the final measurement, consistently above the education industry benchmark of 83.1 shown as a dashed red line.">SEO score improved from 87.0 to 93.8, surpassing the education industry benchmark of 83.1 by over 10 points.</canvas>
+                </div>
+              </div>
+              <figcaption>SEO score trajectory measured via BrightEdge across six reporting periods. Education industry benchmark: 83.1.</figcaption>
             </figure>
 
             <section aria-labelledby="approach-heading">
@@ -134,9 +144,23 @@
               </ul>
             </section>
 
-            <figure style="margin: 1.5rem 0;">
-              <iframe src="organic-traffic-chart.html" title="Bar chart showing monthly organic search traffic growing 67 percent over 12 months after implementing technical SEO improvements" style="width: 100%; height: 480px; border: none; border-radius: 4px; display: block; overflow: hidden;" scrolling="no" loading="lazy" onload="this.style.height=(this.contentDocument.body.scrollHeight+2)+'px'"></iframe>
-              <figcaption style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.5rem;">Monthly organic search sessions indexed to baseline across the first year of the SEO program, representing a 67% lift in organic traffic.</figcaption>
+            <figure>
+              <div class="chart-block">
+                <div class="chart-metrics" aria-label="Organic traffic key figures">
+                  <div class="chart-metric"><div class="chart-metric-label">Year one lift</div><div class="chart-metric-value">+67%</div></div>
+                  <div class="chart-metric"><div class="chart-metric-label">Traffic source</div><div class="chart-metric-value">Organic</div></div>
+                  <div class="chart-metric"><div class="chart-metric-label">Channel</div><div class="chart-metric-value">Search</div></div>
+                  <div class="chart-metric"><div class="chart-metric-label">Timeframe</div><div class="chart-metric-value">12 mo.</div></div>
+                </div>
+                <div class="chart-legend" aria-hidden="true">
+                  <div class="chart-legend-item"><div class="legend-swatch" style="background:rgba(42,120,214,0.4);width:18px;height:14px;border-radius:2px;border:1px solid #2a78d6;"></div>Monthly organic sessions (indexed to 100)</div>
+                  <div class="chart-legend-item"><div class="legend-swatch" style="border-top:2px dashed #e34948;height:0;"></div>Pre-SEO baseline</div>
+                </div>
+                <div style="position:relative;width:100%;height:240px;">
+                  <canvas id="trafficChart" role="img" aria-label="Bar chart showing monthly organic search traffic indexed to 100 at baseline, growing steadily to 167 by month 12, representing a 67 percent increase in the first year.">Organic traffic grew from an indexed baseline of 100 to 167 over 12 months, a 67 percent increase in the first year of the SEO program.</canvas>
+                </div>
+              </div>
+              <figcaption>Monthly organic search sessions indexed to baseline (100) across the first 12 months of the SEO program. Represents a 67% lift in organic traffic year one.</figcaption>
             </figure>
 
             <section aria-labelledby="outcome-heading">
@@ -186,22 +210,10 @@
     <div class="container">
       <h2 id="next-heading">More Work</h2>
       <div class="next-grid">
-        <a href="case-study-email.html" class="next-card">
-          <span class="next-card-tag label">Content Systems · Email</span>
-          <span class="next-card-title">Email Design System</span>
-        </a>
-        <a href="case-study-accessibility.html" class="next-card">
-          <span class="next-card-tag label">Accessibility · WCAG</span>
-          <span class="next-card-title">Accessibility Remediation Program</span>
-        </a>
-        <a href="case-study-drupal.html" class="next-card">
-          <span class="next-card-tag label">Drupal · API</span>
-          <span class="next-card-title">Student Workflow Modernization</span>
-        </a>
-        <a href="case-study-governance.html" class="next-card">
-          <span class="next-card-tag label">Governance · Web Ops</span>
-          <span class="next-card-title">Content Governance Framework</span>
-        </a>
+        <a href="case-study-email.html" class="next-card"><span class="next-card-tag label">Content Systems · Email</span><span class="next-card-title">Email Design System</span></a>
+        <a href="case-study-accessibility.html" class="next-card"><span class="next-card-tag label">Accessibility · WCAG</span><span class="next-card-title">Accessibility Remediation Program</span></a>
+        <a href="case-study-drupal.html" class="next-card"><span class="next-card-tag label">Drupal · API</span><span class="next-card-title">Student Workflow Modernization</span></a>
+        <a href="case-study-governance.html" class="next-card"><span class="next-card-tag label">Governance · Web Ops</span><span class="next-card-title">Content Governance Framework</span></a>
       </div>
     </div>
   </section>
@@ -211,5 +223,32 @@
       <p>© 2026 Stace Rice · Built with semantic HTML and CSS · WCAG 2.1 AA compliant</p>
     </div>
   </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script>
+    new Chart(document.getElementById('seoChart'), {
+      type: 'line',
+      data: {
+        labels: ['Baseline','Q2','Q3','Q4','Q5','Q6','Final'],
+        datasets: [
+          { label: 'UChicago SEO score', data: [87.0,88.2,89.5,90.8,91.9,92.7,93.8], borderColor: '#2a78d6', backgroundColor: 'rgba(42,120,214,0.07)', borderWidth: 2, pointBackgroundColor: '#2a78d6', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 4, fill: true, tension: 0.4 },
+          { label: 'Education benchmark', data: [83.1,83.1,83.1,83.1,83.1,83.1,83.1], borderColor: '#e34948', backgroundColor: 'transparent', borderWidth: 1.5, borderDash: [6,4], pointRadius: 0, fill: false }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(1) } } }, scales: { y: { min: 78, max: 98, ticks: { stepSize: 5, color: '#8A9BB0', font: { size: 11 } }, grid: { color: 'rgba(180,178,169,0.2)' }, border: { display: false } }, x: { ticks: { color: '#8A9BB0', font: { size: 11 }, autoSkip: false }, grid: { display: false }, border: { display: false } } } }
+    });
+
+    new Chart(document.getElementById('trafficChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+        datasets: [
+          { label: 'Monthly organic sessions (indexed)', data: [100,105,110,116,121,128,135,141,149,156,161,167], backgroundColor: 'rgba(42,120,214,0.15)', borderColor: '#2a78d6', borderWidth: 1.5, borderRadius: 3 },
+          { label: 'Pre-SEO baseline', data: [100,100,100,100,100,100,100,100,100,100,100,100], type: 'line', borderColor: '#e34948', borderWidth: 1.5, borderDash: [6,4], pointRadius: 0, fill: false, backgroundColor: 'transparent' }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => { if (ctx.dataset.type === 'line') return 'Baseline: 100'; return 'Index: ' + ctx.parsed.y + ' (+' + Math.round(ctx.parsed.y - 100) + '%)'; } } } }, scales: { y: { min: 70, max: 185, ticks: { stepSize: 20, color: '#8A9BB0', font: { size: 11 } }, grid: { color: 'rgba(180,178,169,0.2)' }, border: { display: false } }, x: { ticks: { color: '#8A9BB0', font: { size: 11 }, autoSkip: false }, grid: { display: false }, border: { display: false } } } }
+    });
+  </script>
 </body>
 </html>

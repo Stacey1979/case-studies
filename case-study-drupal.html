@@ -50,8 +50,26 @@
     .sidebar-card h3 {letter-spacing:0.1em;margin-bottom:1rem; }
     .sidebar-card ul{list-style:none;display:flex;flex-direction:column;gap:0.4rem;}
     .sidebar-card ul li{font-size:0.875rem;color:var(--text-muted);}
-    .placeholder-image{background:var(--grey-light);border-radius:var(--radius);border:2px dashed var(--grey-mid);display:flex;align-items:center;justify-content:center;padding:3rem 2rem;text-align:center;margin:1.5rem 0;}
-    .placeholder-image p{font-size:0.85rem;color:var(--grey-mid);font-weight:500;}
+    .flow-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;background:var(--grey-light);border-radius:var(--radius);padding:1.25rem;margin:1.5rem 0;}
+    .flow-col-head{font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding-bottom:0.625rem;border-bottom:1px solid #dde0e5;margin-bottom:0.875rem;}
+    .flow-col-before .flow-col-head{color:#A32D2D;}
+    .flow-col-after .flow-col-head{color:#0F6E56;}
+    .flow-step{display:flex;align-items:flex-start;gap:8px;margin-bottom:4px;}
+    .flow-dot{flex-shrink:0;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;margin-top:2px;}
+    .flow-dot-b{background:#FCEBEB;color:#A32D2D;border:1px solid #F09595;}
+    .flow-dot-a{background:#E1F5EE;color:#0F6E56;border:1px solid #5DCAA5;}
+    .flow-step-body{flex:1;padding:0.5rem 0.75rem;border-radius:4px;border:1px solid #e8eaed;background:#fff;line-height:1.45;}
+    .flow-step-label{font-weight:500;color:var(--navy);font-size:0.8125rem;}
+    .flow-step-sub{color:var(--text-muted);font-size:0.75rem;margin-top:3px;}
+    .flow-tag{display:inline-block;font-size:0.68rem;font-weight:500;border-radius:4px;padding:1px 6px;margin-top:5px;}
+    .flow-tag-pain{background:#FCEBEB;color:#A32D2D;border:1px solid #F09595;}
+    .flow-tag-win{background:#E1F5EE;color:#0F6E56;border:1px solid #5DCAA5;}
+    .flow-arrow{padding:2px 0 2px 32px;color:var(--grey-mid);font-size:1rem;line-height:1;}
+    .flow-outcome{margin-top:1rem;padding:0.75rem 1rem;border-radius:4px;font-size:0.75rem;line-height:1.5;}
+    .flow-outcome-label{font-weight:600;font-size:0.8125rem;margin-bottom:4px;}
+    .flow-outcome-before{background:#FCEBEB;color:#791F1F;}
+    .flow-outcome-after{background:#E1F5EE;color:#085041;}
+    @media(max-width:600px){.flow-wrap{grid-template-columns:1fr;}}
     .next-cases{background:var(--grey-light);padding:var(--gap) 0;}
     .next-cases h2{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:1.5rem;}
     .next-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:1rem;}
@@ -117,9 +135,39 @@
               <p>Student enrollment and data management required manual processes across disconnected systems. Staff spent significant time managing redundant communication, and prospective students encountered unnecessary friction in the enrollment journey. The lack of system integration meant data had to be entered and managed in multiple places, increasing error risk and workload across departments.</p>
             </section>
 
-            <div class="placeholder-image" role="img" aria-label="Placeholder for before state workflow diagram showing disconnected systems">
-              <p>🔄 Before state: disconnected systems workflow diagram<br><em>Replace with actual diagram or screenshot</em></p>
-            </div>
+            <figure>
+              <div class="flow-wrap" role="img" aria-label="Side by side comparison of enrollment workflow. Before: 7 steps with context switches, hidden section info, long form, and multi-step checkout. After: 4 steps with section info surfaced via API, pre-loaded cart, and simple name and email payment.">
+                <div class="flow-col flow-col-before">
+                  <div class="flow-col-head">Before — legacy enrollment</div>
+                  <div class="flow-step"><div class="flow-dot flow-dot-b">1</div><div class="flow-step-body"><div class="flow-step-label">Find a course</div><div class="flow-step-sub">Browse the website to locate the course</div></div></div>
+                  <div class="flow-arrow">↓</div>
+                  <div class="flow-step"><div class="flow-dot flow-dot-b">2</div><div class="flow-step-body"><div class="flow-step-label">Click register button</div><div class="flow-step-sub">Redirected away from the main site to the legacy system</div><span class="flow-tag flow-tag-pain">Context switch</span></div></div>
+                  <div class="flow-arrow">↓</div>
+                  <div class="flow-step"><div class="flow-dot flow-dot-b">3</div><div class="flow-step-body"><div class="flow-step-label">Open section dropdown</div><div class="flow-step-sub">Must expand a dropdown to see days, times, and instructor across multiple sections</div><span class="flow-tag flow-tag-pain">Hidden information</span></div></div>
+                  <div class="flow-arrow">↓</div>
+                  <div class="flow-step"><div class="flow-dot flow-dot-b">4</div><div class="flow-step-body"><div class="flow-step-label">Click add to cart</div><div class="flow-step-sub">Locate and click the add to cart button for the selected section</div></div></div>
+                  <div class="flow-arrow">↓</div>
+                  <div class="flow-step"><div class="flow-dot flow-dot-b">5</div><div class="flow-step-body"><div class="flow-step-label">Go to cart</div><div class="flow-step-sub">Navigate to cart to begin checkout</div></div></div>
+                  <div class="flow-arrow">↓</div>
+                  <div class="flow-step"><div class="flow-dot flow-dot-b">6</div><div class="flow-step-body"><div class="flow-step-label">Complete long registration form</div><div class="flow-step-sub">Many required fields including personal info, address, demographics, emergency contact, and more</div><span class="flow-tag flow-tag-pain">High friction</span></div></div>
+                  <div class="flow-arrow">↓</div>
+                  <div class="flow-step"><div class="flow-dot flow-dot-b">7</div><div class="flow-step-body"><div class="flow-step-label">Complete payment process</div><div class="flow-step-sub">Separate payment step after the registration form</div><span class="flow-tag flow-tag-pain">Multi-step checkout</span></div></div>
+                  <div class="flow-outcome flow-outcome-before"><div class="flow-outcome-label">Before: 7 steps</div>Context switches, hidden section info, long registration form, and multi-step checkout at every stage.</div>
+                </div>
+                <div class="flow-col flow-col-after">
+                  <div class="flow-col-head">After — Drupal + Eduframe API</div>
+                  <div class="flow-step"><div class="flow-dot flow-dot-a">1</div><div class="flow-step-body"><div class="flow-step-label">Find a course</div><div class="flow-step-sub">Course data pulled into Drupal via Eduframe API — all sections with days, times, and instructor surfaced inline on the page</div><span class="flow-tag flow-tag-win">No context switch</span></div></div>
+                  <div class="flow-arrow">↓</div>
+                  <div class="flow-step"><div class="flow-dot flow-dot-a">2</div><div class="flow-step-body"><div class="flow-step-label">Click section register button</div><div class="flow-step-sub">Each section has its own direct registration link — no dropdown, no guessing</div><span class="flow-tag flow-tag-win">Full info visible</span></div></div>
+                  <div class="flow-arrow">↓</div>
+                  <div class="flow-step"><div class="flow-dot flow-dot-a">3</div><div class="flow-step-body"><div class="flow-step-label">Redirected with section pre-loaded</div><div class="flow-step-sub">User lands in the new system with the selected section already in cart — no searching or re-selecting</div><span class="flow-tag flow-tag-win">Zero re-entry</span></div></div>
+                  <div class="flow-arrow">↓</div>
+                  <div class="flow-step"><div class="flow-dot flow-dot-a">4</div><div class="flow-step-body"><div class="flow-step-label">Complete simple payment</div><div class="flow-step-sub">Only name and email required — streamlined single-step checkout with no long form</div><span class="flow-tag flow-tag-win">Minimal friction</span></div></div>
+                  <div class="flow-outcome flow-outcome-after"><div class="flow-outcome-label">After: 4 steps</div>All section info surfaced upfront via API, pre-loaded cart on redirect, and name and email only to complete enrollment.</div>
+                </div>
+              </div>
+              <figcaption>Before and after enrollment workflow. The Eduframe SIS API integration reduced enrollment from 7 steps to 4, eliminating context switches and form friction.</figcaption>
+            </figure>
 
             <section aria-labelledby="approach-heading">
               <h2 id="approach-heading">The Approach</h2>
@@ -133,9 +181,7 @@
               </ul>
             </section>
 
-            <div class="placeholder-image" role="img" aria-label="Placeholder for integration architecture diagram">
-              <p>⚙️ Integration architecture: Eduframe SIS API connected to Drupal 11<br><em>Replace with actual architecture diagram</em></p>
-            </div>
+
 
             <section aria-labelledby="outcome-heading">
               <h2 id="outcome-heading">The Outcome</h2>
