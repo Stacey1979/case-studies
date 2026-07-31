@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organic Traffic Chart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; padding: 1rem; font-family: 'Inter', sans-serif; background: #F0F2F5; box-sizing: border-box; }
+    .chart-wrap { background: #fff; border-radius: 4px; border: 1px solid #dde0e5; padding: 1.5rem; max-width: 700px; margin: 0 auto; }
+    .metric-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 1.5rem; }
+    .metric { background: #F0F2F5; border-radius: 4px; padding: 0.875rem 1rem; flex: 1; min-width: 100px; }
+    .metric-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #5A6A82; margin-bottom: 4px; }
+    .metric-value { font-size: 1.4rem; font-weight: 600; color: #1B2A4A; }
+    .legend { display: flex; gap: 1.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #5A6A82; }
+    .legend-solid { width: 20px; height: 2px; border-radius: 2px; }
+    figcaption { font-size: 0.75rem; color: #5A6A82; margin-top: 0.875rem; line-height: 1.5; }
+  </style>
+</head>
+<body>
+<figure class="chart-wrap">
+  <div class="metric-row" aria-label="Key metrics">
+    <div class="metric">
+      <div class="metric-label">Year one lift</div>
+      <div class="metric-value">+67%</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Traffic source</div>
+      <div class="metric-value">Organic</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Channel</div>
+      <div class="metric-value">Search</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Timeframe</div>
+      <div class="metric-value">12 mo.</div>
+    </div>
+  </div>
+
+  <div class="legend" aria-hidden="true">
+    <div class="legend-item"><div class="legend-solid" style="background:#2a78d6;"></div>Monthly organic sessions (indexed)</div>
+    <div class="legend-item"><div class="legend-solid" style="background:#e34948; width: 20px; height: 0; border-top: 2px dashed #e34948;"></div>Pre-SEO baseline</div>
+  </div>
+
+  <div style="position: relative; width: 100%; height: 260px;">
+    <canvas id="trafficChart" role="img" aria-label="Bar chart showing monthly organic search traffic indexed to 100 at baseline, growing steadily to 167 by month 12, representing a 67 percent increase in organic traffic in the first year after implementing technical SEO improvements.">Organic traffic grew from an indexed baseline of 100 to 167 over 12 months, representing a 67 percent increase in the first year of the SEO program.</canvas>
+  </div>
+
+  <figcaption>Monthly organic search sessions indexed to baseline (100) across the first 12 months of the SEO program. Represents a 67% increase in organic traffic year one.</figcaption>
+</figure>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const data = [100, 105, 110, 116, 121, 128, 135, 141, 149, 156, 161, 167];
+const baseline = data.map(() => 100);
+
+new Chart(document.getElementById('trafficChart'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [
+      {
+        label: 'Monthly organic sessions (indexed)',
+        data: data,
+        backgroundColor: 'rgba(42,120,214,0.15)',
+        borderColor: '#2a78d6',
+        borderWidth: 1.5,
+        borderRadius: 3,
+        borderSkipped: false
+      },
+      {
+        label: 'Pre-SEO baseline',
+        data: baseline,
+        type: 'line',
+        borderColor: '#e34948',
+        borderWidth: 1.5,
+        borderDash: [6, 4],
+        pointRadius: 0,
+        fill: false,
+        backgroundColor: 'transparent'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => {
+            if (ctx.dataset.label.includes('baseline')) return 'Baseline: 100';
+            const pct = Math.round(ctx.parsed.y - 100);
+            return 'Sessions index: ' + ctx.parsed.y + ' (+' + pct + '%)';
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        min: 70,
+        max: 185,
+        ticks: {
+          stepSize: 20,
+          color: '#8A9BB0',
+          font: { size: 11 },
+          callback: (v) => v
+        },
+        grid: { color: 'rgba(180,178,169,0.2)' },
+        border: { display: false },
+        title: {
+          display: true,
+          text: 'Sessions (indexed to 100)',
+          color: '#8A9BB0',
+          font: { size: 11 }
+        }
+      },
+      x: {
+        ticks: { color: '#8A9BB0', font: { size: 11 }, autoSkip: false },
+        grid: { display: false },
+        border: { display: false }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
