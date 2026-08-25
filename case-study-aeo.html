@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AEO & GEO Audit Agent case study — Stace Rice">
+  <title>AEO & GEO Audit Agent · Stace Rice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#1B2A4A;--slate:#2E4A7A;--teal:#2ABFBF;--teal-text:#147070;--grey-mid:#8A9BB0;--grey-light:#F0F2F5;--white:#FFFFFF;--text:#1B2A4A;--text-muted:#5A6A82;--radius:4px;--max-w:1100px;--gap:clamp(2rem,5vw,4rem);}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;font-size:1rem;line-height:1.7;color:var(--text);background:var(--white);}
+    img{max-width:100%;display:block;}
+    a{color:inherit;text-decoration:underline;}
+    a:hover{text-decoration:none;}
+    a:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:var(--radius);text-decoration:none;}
+    .skip-link{position:absolute;top:-100%;left:1rem;background:var(--teal);color:var(--white);padding:0.5rem 1rem;border-radius:var(--radius);font-weight:600;z-index:9999;text-decoration:none;}
+    .skip-link:focus{top:1rem;}
+    .container{width:100%;max-width:var(--max-w);margin:0 auto;padding:0 clamp(1.25rem,5vw,3rem);}
+    nav{position:sticky;top:0;background:var(--white);border-bottom:1px solid var(--grey-light);z-index:100;}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;}
+    .nav-logo{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--navy);text-decoration:none;}
+    .nav-links{display:flex;gap:2rem;list-style:none;}
+    .nav-links a{font-size:0.875rem;font-weight:500;color:var(--text-muted);text-decoration:none;letter-spacing:0.03em;text-transform:uppercase;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--teal-text);}
+    .case-hero{padding:clamp(3rem,8vw,6rem) 0 clamp(2rem,5vw,4rem);border-bottom:1px solid var(--grey-light);}
+    .back-link{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.85rem;font-weight:500;color:var(--text-muted);text-decoration:none;margin-bottom:2rem;transition:color 0.2s;}
+    .back-link:hover{color:var(--teal-text);}
+    .label{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal-text);}
+    .case-tag{margin-bottom:1rem;display:block;}
+    .case-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.5rem);color:var(--navy);line-height:1.1;margin-bottom:1.25rem;}
+    .case-hero-desc{font-size:1.1rem;color:var(--text-muted);max-width:640px;}
+    .metrics-bar{display:flex;flex-wrap:wrap;gap:2rem;padding:clamp(1.5rem,4vw,2.5rem) 0;border-bottom:1px solid var(--grey-light);}
+    .metric-number{font-family:'DM Serif Display',serif;font-size:clamp(1.75rem,3vw,2.25rem);color:var(--slate);display:block;line-height:1;}
+    .metric-label{font-size:0.78rem;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);display:block;margin-top:0.2rem;}
+    .case-body{padding:var(--gap) 0;}
+    .case-grid{display:grid;grid-template-columns:2fr 1fr;gap:4rem;align-items:start;}
+    .case-content section{margin-bottom:2.5rem;}
+    .case-content h2{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:0.75rem;}
+    .case-content p{color:var(--text-muted);margin-bottom:0.75rem;font-size:1rem;}
+    .case-content ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:0.75rem;}
+    .case-content ul li{color:var(--text-muted);padding-left:1.25rem;position:relative;font-size:1rem;}
+    .case-content ul li::before{content:'→';position:absolute;left:0;color:var(--teal-text);font-size:0.85rem;top:0.1rem;}
+    .case-sidebar{position:sticky;top:84px;display:flex;flex-direction:column;gap:1.5rem;}
+    .sidebar-card{background:var(--grey-light);border-radius:var(--radius);padding:1.5rem;}
+    .sidebar-card h3{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal-text);margin-bottom:1rem;}
+    .sidebar-card ul{list-style:none;display:flex;flex-direction:column;gap:0.4rem;}
+    .sidebar-card ul li{font-size:0.875rem;color:var(--text-muted);}
+    .chart-block{background:var(--grey-light);border-radius:var(--radius);padding:1.25rem;margin:1.5rem 0;}
+    .chart-metrics{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1.25rem;}
+    .chart-metric{background:var(--white);border-radius:var(--radius);padding:0.75rem 1rem;flex:1;min-width:90px;}
+    .chart-metric-label{font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);margin-bottom:3px;}
+    .chart-metric-value{font-size:1.25rem;font-weight:600;color:var(--navy);}
+    .chart-legend{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:0.75rem;}
+    .chart-legend-item{display:flex;align-items:center;gap:6px;font-size:0.75rem;color:var(--text-muted);}
+    .legend-swatch{width:18px;height:2px;border-radius:2px;}
+    figcaption{font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;margin-bottom:1.5rem;line-height:1.5;}
+    .next-cases{background:var(--grey-light);padding:var(--gap) 0;}
+    .next-cases h2{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:1.5rem;}
+    .next-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:1rem;}
+    .next-card{background:var(--white);border-radius:var(--radius);padding:1.5rem;text-decoration:none;color:inherit;border:1px solid transparent;transition:border-color 0.2s,transform 0.2s;display:block;}
+    .next-card:hover{border-color:var(--teal);transform:translateY(-2px);text-decoration:none;}
+    .next-card-tag{display:block;margin-bottom:0.5rem;}
+    .next-card-title{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--navy);}
+    footer{background:var(--navy);padding:1.5rem 0;text-align:center;}
+    footer p{font-size:0.8rem;color:var(--grey-mid);}
+    @media(max-width:768px){.nav-links{display:none;}.case-grid{grid-template-columns:1fr;}.case-sidebar{position:static;}.metrics-bar{gap:1.25rem;}}
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <nav aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo" aria-label="Stace Rice home">Stace Rice</a>
+        <ul class="nav-links" role="list">
+          <li><a href="index.html#work">Work</a></li>
+          <li><a href="index.html#skills">Skills</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="case-hero">
+      <div class="container">
+        <a href="index.html#work" class="back-link" aria-label="Back to all case studies">← All Work</a>
+        <span class="case-tag label">AI Search · Answer Engine Optimization · GEO · Tooling</span>
+        <h1>AEO &amp; GEO Audit Agent</h1>
+        <p class="case-hero-desc">Designing and engineering an interactive diagnostic engine that audits web content for Answer Engine Optimization (AEO) and Generative Engine Optimization (GEO)—evaluating pages for LLM extraction readiness, direct answer probability, structured schema, and developer hand-off.</p>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="metrics-bar" aria-label="Key outcomes">
+        <div class="metric"><span class="metric-number">6</span><span class="metric-label">AI Audit Vectors Evaluated</span></div>
+        <div class="metric"><span class="metric-number">1-Click</span><span class="metric-label">Automated Jira Ticket Export</span></div>
+        <div class="metric"><span class="metric-number">100%</span><span class="metric-label">Automated JSON-LD Schema Generator</span></div>
+      </div>
+    </div>
+
+    <section class="case-body">
+      <div class="container">
+        <div class="case-grid">
+          <div class="case-content">
+
+            <section aria-labelledby="challenge-heading">
+              <h2 id="challenge-heading">The Challenge</h2>
+              <p>As user behavior transitions from traditional keyword search results to conversational AI answer engines (such as Perplexity, ChatGPT, Google Gemini/SGE, and Bing Copilot), standard technical SEO is no longer sufficient. LLM scrapers evaluate web content differently—prioritizing top-of-page summary blocks, explicit definition phrasing, concise token windows, and precise structured data.</p>
+              <p>Digital strategy and development teams lacked a unified, automated tool to evaluate web pages against these emerging AI citation factors and convert diagnostic findings into actionable developer tickets.</p>
+            </section>
+
+            <figure>
+              <div class="chart-block">
+                <div class="chart-metrics" aria-label="AEO audit algorithm weighting key figures">
+                  <div class="chart-metric"><div class="chart-metric-label">Direct Answers</div><div class="chart-metric-value">25%</div></div>
+                  <div class="chart-metric"><div class="chart-metric-label">Citability</div><div class="chart-metric-value">20%</div></div>
+                  <div class="chart-metric"><div class="chart-metric-label">Schema Markup</div><div class="chart-metric-value">20%</div></div>
+                  <div class="chart-metric"><div class="chart-metric-label">Heading Hierarchy</div><div class="chart-metric-value">15%</div></div>
+                </div>
+                <div class="chart-legend" aria-hidden="true">
+                  <div class="chart-legend-item"><div class="legend-swatch" style="background:#2a78d6;"></div>Vector weight in audit score engine (%)</div>
+                </div>
+                <div style="position:relative;width:100%;height:260px;">
+                  <canvas id="aeoWeightsChart" role="img" aria-label="Bar chart showing the weight of the six core audit vectors in the diagnostic scoring engine: Direct Answers 25%, Citability 20%, Schema Markup 20%, Heading Hierarchy 15%, E-E-A-T Signals 10%, and Token Efficiency 10%.">Direct Answer readiness (25%), Citability & Stats (20%), and Schema Markup (20%) represent the primary scoring drivers in the AEO audit engine.</canvas>
+                </div>
+              </div>
+              <figcaption>Scoring breakdown and vector weights across the six core evaluation modules in the AEO &amp; GEO diagnostic engine.</figcaption>
+            </figure>
+
+            <section aria-labelledby="approach-heading">
+              <h2 id="approach-heading">The Approach &amp; Architecture</h2>
+              <p>To solve this gap, I designed and built the <strong>AEO &amp; GEO Audit Agent</strong>—an interactive web application combining a CORS-compliant Python proxy backend with a modular vanilla JavaScript ES Modules front-end orchestrator.</p>
+              <ul role="list">
+                <li><strong>CORS Proxy &amp; Content Fetcher:</strong> Implemented a lightweight Python proxy server (<code style="font-family:monospace;font-size:0.9em;background:#eaeef4;padding:0.1em 0.3em;border-radius:3px;">server.py</code>) enabling live URL fetching, HTML parsing, DOM tree extraction, and script inspection without browser CORS restrictions.</li>
+                <li><strong>6-Vector Diagnostic Engine:</strong> Engineered algorithmic evaluators for Direct Answer Readiness (TL;DR boxes, lead sentence length), Citability (numerical data density, source references), Heading Hierarchy (question-based subheadings), JSON-LD Schema, E-E-A-T Signals, and Token Efficiency.</li>
+                <li><strong>Dynamic JSON-LD Schema Generator:</strong> Programmed real-time snippet generators producing validated <code style="font-family:monospace;font-size:0.9em;background:#eaeef4;padding:0.1em 0.3em;border-radius:3px;">FAQPage</code>, <code style="font-family:monospace;font-size:0.9em;background:#eaeef4;padding:0.1em 0.3em;border-radius:3px;">Article</code>, and <code style="font-family:monospace;font-size:0.9em;background:#eaeef4;padding:0.1em 0.3em;border-radius:3px;">Speakable</code> structured data based on page content.</li>
+                <li><strong>AI Rewrite Previewer:</strong> Created an interactive content refactoring tool that automatically generates top-of-page TL;DR executive summary blocks and direct definition lead paragraphs.</li>
+                <li><strong>Automated Developer Hand-off:</strong> Built a 1-click exporter that packages audit recommendations into formatted Jira technical tickets (complete with severity levels, business rationales, and drop-in code snippets) and clean Markdown reports.</li>
+              </ul>
+            </section>
+
+            <section aria-labelledby="outcome-heading">
+              <h2 id="outcome-heading">The Outcome</h2>
+              <p>The AEO &amp; GEO Audit Agent successfully transforms abstract AI search guidelines into a repeatable, interactive diagnostic workflow. By automatically detecting content gaps and generating ready-to-use JSON-LD schema and Jira tickets, the tool empowers content strategists and web developers to rapidly optimize enterprise web properties for generative answer engines.</p>
+            </section>
+
+          </div>
+
+          <aside class="case-sidebar" aria-label="Project details">
+            <div class="sidebar-card">
+              <h3>My Role</h3>
+              <ul role="list">
+                <li>Product Design &amp; UX Strategy</li>
+                <li>Front-End Engineering (JS/CSS)</li>
+                <li>AEO/GEO Heuristic Architecture</li>
+                <li>Python CORS Proxy Server</li>
+                <li>Technical Ticket Exporter Design</li>
+              </ul>
+            </div>
+            <div class="sidebar-card">
+              <h3>Tools &amp; Skills</h3>
+              <ul role="list">
+                <li>JavaScript (ES Modules)</li>
+                <li>Vite · Node.js</li>
+                <li>Python (<code style="font-family:monospace;font-size:0.9em;">http.server</code>)</li>
+                <li>JSON-LD Structured Data</li>
+                <li>AEO / GEO Strategy</li>
+                <li>HTML5 / Custom CSS System</li>
+              </ul>
+            </div>
+            <div class="sidebar-card">
+              <h3>Project Details</h3>
+              <ul role="list">
+                <li>Personal Tooling Project</li>
+                <li>AI Web Strategy</li>
+                <li>2026</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="next-cases" aria-labelledby="next-heading">
+    <div class="container">
+      <h2 id="next-heading">More Work</h2>
+      <div class="next-grid">
+        <a href="case-study-seo.html" class="next-card"><span class="next-card-tag label">SEO · AEO · GEO</span><span class="next-card-title">Search Visibility Program</span></a>
+        <a href="case-study-accessibility.html" class="next-card"><span class="next-card-tag label">Accessibility · WCAG</span><span class="next-card-title">Accessibility Remediation Program</span></a>
+        <a href="case-study-email.html" class="next-card"><span class="next-card-tag label">Content Systems · Email</span><span class="next-card-title">Email Design System</span></a>
+        <a href="case-study-drupal.html" class="next-card"><span class="next-card-tag label">Drupal · API</span><span class="next-card-title">Student Workflow Modernization</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <p>© 2026 Stace Rice · Built with semantic HTML and CSS · WCAG 2.1 AA compliant</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script>
+    new Chart(document.getElementById('aeoWeightsChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Direct Answers', 'Citability & Stats', 'Schema Markup', 'Heading Hierarchy', 'E-E-A-T Signals', 'Token Efficiency'],
+        datasets: [{
+          label: 'Weight (%)',
+          data: [25, 20, 20, 15, 10, 10],
+          backgroundColor: [
+            'rgba(42, 191, 191, 0.85)',
+            'rgba(46, 74, 122, 0.85)',
+            'rgba(42, 120, 214, 0.85)',
+            'rgba(138, 155, 176, 0.85)',
+            'rgba(20, 112, 112, 0.85)',
+            'rgba(27, 42, 74, 0.85)'
+          ],
+          borderColor: '#1B2A4A',
+          borderWidth: 1,
+          borderRadius: 4
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => ctx.dataset.label + ': ' + ctx.parsed.x + '%'
+            }
+          }
+        },
+        scales: {
+          x: {
+            min: 0,
+            max: 30,
+            ticks: {
+              stepSize: 5,
+              color: '#8A9BB0',
+              font: { size: 11 },
+              callback: v => v + '%'
+            },
+            grid: { color: 'rgba(180,178,169,0.2)' },
+            border: { display: false }
+          },
+          y: {
+            ticks: { color: '#1B2A4A', font: { size: 11, weight: '500' } },
+            grid: { display: false },
+            border: { display: false }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
