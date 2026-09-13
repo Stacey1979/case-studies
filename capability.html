@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Navigation without GPS — Draper</title>
+<meta name="description" content="Draper builds navigation that holds position when satellite signals are jammed, spoofed, degraded, or unavailable — across strategic, space, and electronic systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+
+<!-- Structured data: the mechanical prerequisite for AI answer-engine citation -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"Navigation without GPS",
+  "about":"Inertial and alternative navigation for GPS-denied environments",
+  "publisher":{
+    "@type":"Organization",
+    "name":"Draper",
+    "url":"https://www.draper.com",
+    "address":{"@type":"PostalAddress","streetAddress":"555 Technology Square","addressLocality":"Cambridge","addressRegion":"MA","postalCode":"02139"}
+  }
+}
+</script>
+
+<style>
+/* ============================================================
+   DRAPER — "CARET" DESIGN SYSTEM · capability template
+   Concept prototype. Stacey Rice.
+   Tokens identical to the homepage; in production this block
+   extracts to a single shared stylesheet.
+   ============================================================ */
+
+:root{
+  --orange:#FF4611;      /* primary — carries the caret and display type */
+  --orange-3:#FF6333;    /* tertiary — large fields only. Ink 6.04:1; white 2.96:1 fails, so no white caret here */
+  --ink:#10181F;
+  --paper:#FFFFFF;
+  --paper-2:#EFEBE3;      /* warm neutral, one step below paper-3 */
+  --paper-3:#F6F4EE;      /* warm ground — ink 16.28:1 */
+  --rule:#DBD5C9;         /* warm hairline */
+  --ink-mute:#4E5A65;     /* 7.06:1 on white */
+  --orange-text:#B82D08;  /* 6.15:1 on white */
+  --measure:62ch;
+  --gutter:clamp(1.25rem,5vw,4.5rem);
+  --bar:clamp(3.5rem,7vw,6rem);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Archivo','Helvetica Neue',Arial,sans-serif;
+  font-variation-settings:'wdth' 100,'wght' 400;
+  font-size:clamp(1rem,.96rem + .2vw,1.0625rem);
+  line-height:1.6;font-variant-numeric:tabular-nums;
+}
+h1,h2,h3{margin:0;line-height:1.08;letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:1px}
+
+.skip{position:absolute;left:var(--gutter);top:-6rem;z-index:99;background:var(--ink);color:var(--paper);padding:.75rem 1.25rem;text-decoration:none;transition:top .15s}
+.skip:focus{top:1rem}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+
+.wrap{max-width:82rem;margin:0 auto;padding-inline:var(--gutter)}
+
+/* ---------- Image frames ----------
+   Real photography drops into /img. Until a shot exists, each frame
+   shows the art-direction note naming the image it needs. */
+.frame{position:relative;overflow:hidden;background:var(--ink);display:block}
+.frame::before{content:"";position:absolute;inset:0;background:linear-gradient(148deg,#0B1218 0%,#1C2833 58%,#3A2419 100%)}
+.frame .ghost{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:34%;height:auto;color:var(--orange);opacity:.2}
+.frame img{position:relative;z-index:2;display:block;width:100%;height:100%;object-fit:cover}
+.shotnote{display:none;position:absolute;z-index:3;inset:auto 0 0 0;padding:.85rem 1rem;background:rgba(11,18,24,.74);color:var(--paper);font-size:1rem;line-height:1.35}
+.shotnote .caret{color:var(--orange);width:.5em;height:.47em;margin-right:.45em}
+.frame.is-empty .shotnote{display:block}
+.frame-wide{aspect-ratio:24/9}
+.frame-tile{aspect-ratio:4/3;margin-bottom:1.25rem}
+.frame-thumb{aspect-ratio:3/2}
+.frame-tall{aspect-ratio:4/5}
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+
+.caret{display:inline-block;width:.765em;height:.72em;fill:currentColor;flex:none;vertical-align:baseline}
+
+/* ---------- Masthead ---------- */
+.masthead{border-bottom:1px solid var(--rule);position:relative;z-index:30;background:var(--paper)}
+.masthead .wrap{display:flex;align-items:center;gap:clamp(1rem,3vw,2.5rem);min-height:var(--bar)}
+.wordmark{display:flex;align-items:center;justify-content:flex-start;text-decoration:none;color:var(--ink);margin-right:auto}
+.logo{display:block;flex:none;height:clamp(1.15rem,1.9vw,1.5rem);width:auto;aspect-ratio:1800/219}
+
+.nav{display:flex;align-items:center;gap:clamp(.9rem,2vw,1.9rem)}
+.nav a:not(.btn){text-decoration:none;font-variation-settings:'wght' 500;font-size:1rem;padding:.55rem 0;border-bottom:2px solid transparent;transition:border-color .12s,color .12s}
+.nav a:not(.btn):hover{color:var(--orange-text);border-bottom-color:var(--orange)}
+.nav a:not(.btn)[aria-current="true"]{border-bottom-color:var(--orange)}
+
+.btn{display:inline-flex;align-items:center;gap:.5em;padding:.7rem 1.35rem;min-height:44px;text-decoration:none;font-variation-settings:'wght' 650;text-transform:uppercase;letter-spacing:.065em;font-size:1rem;border:2px solid var(--ink);transition:background .14s,color .14s,border-color .14s}
+.btn-primary{background:var(--orange);border-color:var(--orange);color:var(--ink)}
+.btn-primary:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper)}
+
+.menu-btn{display:none;align-items:center;justify-content:center;width:44px;height:44px;padding:0;background:none;border:1px solid var(--rule);color:var(--ink);cursor:pointer}
+.menu-btn svg{width:20px;height:14px;fill:currentColor}
+
+/* ---------- Page head ---------- */
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem;font-size:1rem;color:var(--ink-mute);margin-bottom:clamp(1.25rem,3vw,2rem)}
+.crumbs a{text-decoration:none}
+.crumbs a:hover{color:var(--orange-text)}
+.crumbs .caret{transform:rotate(90deg);width:.5em;height:.47em;color:var(--rule)}
+.crumbs [aria-current]{color:var(--ink)}
+
+/* Text carries two thirds, the image one third, matched in height. */
+.overview-grid{
+  display:grid;
+  grid-template-columns:minmax(0,2fr) minmax(0,1fr);
+  gap:clamp(1.75rem,4vw,3.5rem);
+  align-items:stretch;
+}
+
+.frame-side{height:100%;min-height:clamp(17rem,26vw,23rem)}
+
+/* Interior pages are identified by a constructed icon, not a photograph.
+   Built from the official caret, so every capability icon shares one mark. */
+/* Page head: copy left, capability mark occupying the image slot on the right. */
+/* Page head: copy left, capability mark in the image slot on the right.
+   Explicit placement so the mark can sit beside the heading on small
+   screens while the body copy runs full width beneath it. */
+.pagehead-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);
+  column-gap:clamp(2rem,5vw,4.5rem);
+  align-items:start;
+  margin-top:clamp(1.5rem,3vw,2.25rem);
+}
+.pagehead-grid > h1{grid-column:1;grid-row:1;text-align:left}
+.pagehead-grid > .answer{grid-column:1;grid-row:2}
+.pagehead-grid > .spans{grid-column:1;grid-row:3}
+.page-mark-wrap{
+  grid-column:2;grid-row:1 / 4;align-self:center;
+  display:flex;align-items:center;justify-content:center;
+}
+.page-mark{width:min(100%,24rem);min-width:6.25rem;height:auto}   /* never below 100px */
+.frame-side img{object-position:50% 46%}
+.pagehead{padding-block:clamp(2.5rem,6vw,4.5rem) clamp(2rem,4vw,3rem)}
+.pagehead h1{
+  font-variation-settings:'wdth' 112,'wght' 780;
+  font-size:clamp(2.25rem,5.6vw,4.25rem);
+  letter-spacing:-.028em;max-width:15ch;
+}
+.spans{display:flex;flex-wrap:wrap;gap:.5rem .75rem;margin-top:clamp(1.25rem,2.5vw,1.75rem)}
+.span-tag{
+  display:inline-flex;align-items:center;gap:.45em;
+  border:1px solid var(--orange);   /* 3.42:1 on white — clears the 3:1 UI floor */
+  padding:.4rem .8rem;
+  font-size:1rem;color:var(--ink);text-decoration:none;
+}
+.span-tag .caret{width:.52em;height:.49em;color:var(--orange)}
+.span-tag:hover{background:var(--orange);border-color:var(--orange);color:var(--ink)}
+
+/* ---------- Answer block: the citable summary ---------- */
+.answer{
+  border-left:6px solid var(--orange);
+  padding:clamp(1.25rem,2.5vw,1.75rem) 0 clamp(1.25rem,2.5vw,1.75rem) clamp(1.25rem,2.5vw,2rem);
+  margin-top:clamp(1.75rem,3.5vw,2.5rem);
+  max-width:68ch;
+}
+.answer p{font-size:clamp(1.125rem,1.9vw,1.4375rem);line-height:1.45;font-variation-settings:'wght' 450}
+
+/* ---------- Sticky section nav ---------- */
+.subnav{position:sticky;top:0;z-index:20;background:var(--paper);border-block:1px solid var(--rule)}
+.subnav .wrap{display:flex;gap:clamp(1rem,2.4vw,2.25rem);overflow-x:auto;scrollbar-width:thin}
+.subnav a{
+  text-decoration:none;white-space:nowrap;
+  font-size:1rem;font-variation-settings:'wght' 500;
+  padding:1rem 0;border-bottom:2px solid transparent;
+}
+.subnav a:hover{color:var(--orange-text);border-bottom-color:var(--orange)}
+
+/* ---------- Sections ---------- */
+.section{padding-block:clamp(3rem,6.5vw,5.5rem);scroll-margin-top:4rem}
+.section-tint{background:var(--paper-2)}
+.section-ink{background:var(--ink);color:var(--paper)}
+
+.section h2{
+  font-variation-settings:'wdth' 110,'wght' 750;
+  font-size:clamp(1.625rem,3.4vw,2.5rem);
+  max-width:20ch;margin-bottom:clamp(1.5rem,3vw,2.25rem);
+}
+.prose p{max-width:var(--measure);margin-bottom:1.15rem;color:var(--ink-mute)}
+.prose p:last-child{margin-bottom:0}
+
+.textlink{display:inline-flex;align-items:center;gap:.5em;color:var(--orange-text);text-decoration:none;font-variation-settings:'wght' 600;border-bottom:2px solid var(--orange);padding-bottom:2px}
+.textlink .caret{transform:rotate(90deg);width:.64em;height:.6em}
+.textlink:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.more{margin-top:clamp(1.75rem,3.5vw,2.5rem)}
+.breadth .more{margin-top:clamp(3rem,6vw,4.5rem)}
+.section-ink .textlink{color:var(--orange-3);border-bottom-color:var(--orange-3)}
+.section-ink .textlink:hover{color:var(--paper);border-bottom-color:var(--paper)}
+
+/* ---------- Approach: hairline register ---------- */
+.approach{border-top:1px solid var(--rule)}
+.approach-item{
+  display:grid;gap:.6rem clamp(1.5rem,4vw,3.5rem);
+  grid-template-columns:minmax(0,22rem) minmax(0,1fr);
+  padding-block:clamp(1.5rem,3vw,2.25rem);
+  border-bottom:1px solid var(--rule);
+}
+.approach-item h3{
+  font-variation-settings:'wdth' 102,'wght' 650;
+  font-size:clamp(1.125rem,2vw,1.4375rem);
+  display:flex;align-items:baseline;gap:.55em;
+}
+.approach-item h3 .caret{color:var(--orange);width:.6em;height:.57em}
+.approach-item p{color:var(--ink-mute);max-width:56ch}
+
+/* ---------- Evidence rows ---------- */
+.evidence{border-top:1px solid var(--rule)}
+.entry{
+  display:grid;gap:1rem clamp(1.5rem,3.5vw,3rem);
+  grid-template-columns:minmax(0,13rem) minmax(0,9rem) minmax(0,1fr) minmax(0,20rem);
+  align-items:start;padding-block:clamp(1.35rem,2.6vw,2rem);
+  border-bottom:1px solid var(--rule);text-decoration:none;transition:background .14s;
+}
+.section-tint .entry:hover{background:var(--paper)}
+.entry-market{font-variation-settings:'wght' 600;font-size:1rem;color:var(--ink-mute);padding-top:.3rem}
+.entry h3{font-variation-settings:'wdth' 102,'wght' 650;font-size:clamp(1.0625rem,1.8vw,1.375rem);display:flex;align-items:baseline;gap:.55em}
+.entry h3 .caret{color:var(--orange);width:.6em;height:.57em}
+.entry p{color:var(--ink-mute);font-size:1rem;line-height:1.55}
+.entry:hover h3{color:var(--orange-text)}
+
+/* ---------- Publications ---------- */
+.papers{list-style:none;margin:0;padding:0;border-top:1px solid #2A343E}
+.papers li{border-bottom:1px solid #2A343E}
+.papers a{display:grid;gap:.35rem clamp(1.5rem,4vw,3rem);grid-template-columns:minmax(0,1fr) minmax(0,12rem);padding-block:1.35rem;text-decoration:none}
+.papers h3{font-variation-settings:'wght' 600;font-size:1.0625rem;line-height:1.35;max-width:52ch}
+.papers a:hover h3{color:var(--orange-3)}
+.papers .meta{color:#8C99A4;font-size:1rem;line-height:1.4}
+
+/* ---------- Disciplines ---------- */
+.disciplines{display:grid;gap:clamp(1.25rem,3vw,2.5rem);grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--rule);padding-top:clamp(1.5rem,3vw,2.25rem)}
+.disciplines h3{font-variation-settings:'wght' 650;font-size:1.0625rem;margin-bottom:.5rem;display:flex;align-items:baseline;gap:.5em}
+.disciplines h3 .caret{color:var(--orange);width:.55em;height:.52em}
+.disciplines p{color:var(--ink-mute);font-size:1rem}
+
+/* ---------- Related ---------- */
+.related{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--ink)}
+.related a{display:block;padding:clamp(1.5rem,2.6vw,2.25rem) clamp(1rem,1.8vw,1.75rem) clamp(1.75rem,3vw,2.5rem);border-right:1px solid var(--rule);text-decoration:none;transition:background .14s}
+.related a:last-child{border-right:0}
+.related a:hover{background:var(--paper-2)}
+.related .caret{color:var(--orange);width:1.21rem;height:1.14rem;margin-bottom:.9rem;display:block}
+.related h3{font-variation-settings:'wdth' 104,'wght' 700;font-size:clamp(1.0625rem,1.7vw,1.3125rem);margin-bottom:.5rem}
+.related p{font-size:1rem;color:var(--ink-mute);line-height:1.5}
+.related a:hover h3{color:var(--orange-text)}
+
+/* ---------- CTA ---------- */
+.cta{display:grid;gap:clamp(1.5rem,4vw,3.5rem);grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:center}
+.cta h2{font-variation-settings:'wdth' 112,'wght' 780;font-size:clamp(1.75rem,4vw,3rem);max-width:16ch;margin-bottom:0}
+.cta p{max-width:42ch;margin-top:1rem}
+.cta-actions{display:flex;flex-wrap:wrap;gap:.75rem}
+.section-orange .btn-ghost:hover{background:var(--ink);color:var(--orange)}
+
+/* ---------- Footer ---------- */
+.foot{background:var(--ink);color:var(--paper);padding-block:clamp(3rem,6vw,4.5rem) 2rem}
+.foot-grid{display:grid;gap:clamp(1.75rem,4vw,3rem);grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr))}
+.foot .wordmark{color:var(--paper);margin-right:auto;margin-bottom:1.15rem;justify-content:flex-start}
+.foot .logo{height:1.6rem;width:auto;aspect-ratio:1800/219}
+.foot address{font-style:normal;color:#8C99A4;font-size:1rem;line-height:1.6}
+.foot h3{font-variation-settings:'wght' 650;font-size:1rem;margin-bottom:.9rem}
+.foot ul{list-style:none;margin:0;padding:0}
+.foot li{margin-bottom:.55rem}
+.foot li a{color:#B4BEC7;text-decoration:none;font-size:1rem}
+.foot li a:hover{color:var(--orange-3)}
+.foot-base{margin-top:clamp(2.5rem,5vw,3.5rem);padding-top:1.5rem;border-top:1px solid #2A343E;display:flex;flex-wrap:wrap;gap:.75rem 2rem;justify-content:space-between;color:#8C99A4;font-size:1rem}
+.foot-base a{color:#8C99A4}
+
+/* Tertiary orange softens the large fields; the caret rule below keeps
+   white carets on true Draper Orange, where they clear 3:1. */
+.section-orange{background:var(--orange-3);color:var(--ink)}
+.section-orange .caret{color:var(--ink)}
+
+/* Guide: "When used on the Draper orange, a white caret must be substituted." */
+.btn-primary .caret{color:var(--paper);transform:rotate(90deg);width:.5em;height:.47em}
+.btn-primary:hover .caret{color:var(--orange)}
+.wordmark.on-orange{--logo-caret:#FFFFFF}
+
+/* ============================================================
+   MOTION
+   Two ideas only: images breathe on hover, and carets move the
+   way they point. Nothing is scroll-triggered, and the whole
+   block is gated on prefers-reduced-motion.
+   ============================================================ */
+
+@media (prefers-reduced-motion:no-preference){
+  .frame img{transition:transform .55s cubic-bezier(.2,.7,.3,1)}
+  .area:hover .frame img,
+  .entry:hover .frame img{transform:scale(1.045)}
+
+  .caret{transition:transform .25s cubic-bezier(.2,.7,.3,1)}
+  .area:hover h2 .caret,
+  .proof:hover .proof-title .caret,
+  .entry:hover h3 .caret{transform:translateY(-4px)}
+  .textlink:hover .caret,
+  .btn:hover .caret{transform:rotate(90deg) translateY(-4px)}
+  .span-tag:hover .caret{transform:translateY(-3px)}
+
+  .hero-figure img{animation:settle 14s cubic-bezier(.16,.7,.3,1) forwards}
+  @keyframes settle{from{transform:scale(1.07)}to{transform:scale(1)}}
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1180px){
+  .entry{grid-template-columns:minmax(0,11rem) minmax(0,8rem) minmax(0,1fr)}
+  .entry p{grid-column:2 / -1}
+}
+@media (max-width:1080px){
+  .disciplines,.related{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .related a:nth-child(2){border-right:0}
+  .related a:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+  .entry{grid-template-columns:minmax(0,9rem) minmax(0,1fr)}
+  .entry .frame{grid-row:1 / span 3}
+  .entry-market,.entry h3,.entry p{grid-column:2}
+  .entry-market{padding-top:0}
+}
+@media (max-width:980px){
+  .nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--paper);border-bottom:1px solid var(--rule);padding:.5rem var(--gutter) 1.5rem}
+  .nav.open{display:flex}
+  .nav a:not(.btn){padding:.9rem 0;border-bottom:1px solid var(--rule)}
+  .nav .btn{margin-top:1rem;justify-content:center;border-bottom-width:2px}
+  .menu-btn{display:inline-flex}
+  .approach-item,.cta,.papers a{grid-template-columns:minmax(0,1fr)}
+  .pagehead-grid{grid-template-columns:minmax(0,1fr) auto;column-gap:clamp(1rem,4vw,1.75rem)}
+  .pagehead-grid > .answer,.pagehead-grid > .spans{grid-column:1 / -1}
+  .page-mark-wrap{grid-column:2;grid-row:1;align-self:center}
+  .page-mark{width:clamp(6.25rem,18vw,8rem)}
+  .overview-grid{grid-template-columns:minmax(0,1fr)}
+  .frame-side{min-height:0;aspect-ratio:16/9}
+
+  .foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .disciplines,.related{grid-template-columns:minmax(0,1fr)}
+  .entry{grid-template-columns:minmax(0,6.5rem) minmax(0,1fr);gap:.85rem 1.1rem}
+  .frame-wide{aspect-ratio:16/10}
+  .related a{border-right:0;border-bottom:1px solid var(--rule)}
+  .foot-grid{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- Brand marks defined once, referenced everywhere -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="caret" viewBox="619.756 13.406 216.543 203.909"><path fill="currentColor" d="M697.844 13.4062L619.756 217.315H668.35L728.027 57.0584L787.705 217.315H836.299L758.211 13.4062H697.844Z"/></symbol>
+  <symbol id="draper" viewBox="0 0 1800 219">
+    <path fill="currentColor" d="M105.265 13.4062H0V217.315H105.265C166.007 217.315 180.504 187.514 180.504 148.311V82.4413C180.504 43.2389 166.007 13.4376 105.265 13.4376V13.4062ZM132.693 148.687C132.693 167.521 124.459 176.138 102.541 176.138H48.5936V54.5828H102.541C124.49 54.5828 132.693 63.2005 132.693 82.0339V148.687Z"/>
+    <path fill="currentColor" d="M493.983 100.084V70.6586C493.983 34.5899 476.355 13.4062 422.689 13.4062H313.51V217.315H362.104V157.712H418.776L458.728 217.315H513.959L466.931 147.904C487.69 136.529 493.952 123.21 493.952 100.053L493.983 100.084ZM446.579 97.3263C446.579 111.835 439.91 118.886 421.5 118.886H362.073V53.016H423.065C439.91 53.016 446.579 58.4999 446.579 73.0089V97.3263Z"/>
+    <path fill="var(--logo-caret,#FF4611)" d="M697.844 13.4062L619.756 217.315H668.35L728.027 57.0584L787.705 217.315H836.299L758.211 13.4062H697.844Z"/>
+    <path fill="currentColor" d="M1052.59 13.4062H946.169V217.315H994.763V159.687H1050.28C1103.94 159.687 1123.95 138.91 1123.95 102.058V70.69C1123.95 34.6213 1106.7 13.4376 1052.66 13.4376L1052.59 13.4062ZM1075.7 99.6765C1075.7 113.809 1069.03 120.453 1050.62 120.453H994.731V53.016H1050.62C1069.03 53.016 1075.7 59.2834 1075.7 73.0089V99.6765Z"/>
+    <path fill="currentColor" d="M1242.15 217.315H1398.73V177.329H1290.74V133.395H1391.68V93.0018H1290.74V53.392H1398.73V13.4062H1242.15V217.315Z"/>
+    <path fill="currentColor" d="M1521.59 13.4024V217.311H1570.18V157.709H1626.85L1666.8 217.311H1722.03L1675.01 147.9C1695.76 136.525 1702.03 123.207 1702.03 100.049V70.6235C1702.03 34.5548 1684.4 13.3711 1630.73 13.3711H1521.55L1521.59 13.4024ZM1654.69 73.0051V97.3225C1654.69 111.831 1648.02 118.882 1629.61 118.882H1570.18V53.0122H1631.17C1648.02 53.0122 1654.69 58.4961 1654.69 73.0051Z"/>
+    <path fill="currentColor" d="M1775.48 50.6297C1761.77 50.6297 1751.09 39.5992 1751.09 26.2184C1751.09 12.8375 1761.9 1.68164 1775.61 1.68164C1789.32 1.68164 1800 12.7122 1800 26.093C1800 39.4738 1789.2 50.6297 1775.48 50.6297ZM1775.64 3.78121C1762.93 3.78121 1753.35 13.9343 1753.35 26.2184C1753.35 38.5024 1762.87 48.5302 1775.52 48.5302C1788.16 48.5302 1797.81 38.3771 1797.81 26.093C1797.81 13.809 1788.29 3.78121 1775.64 3.78121ZM1780.15 27.9106L1787.91 37.9697H1783.31L1776.08 28.506H1769.66V37.9697H1765.93V12.9002H1777.14C1782.69 12.9002 1786.6 15.8145 1786.6 20.4837C1786.6 24.6202 1783.91 27.0331 1780.12 27.9106H1780.15ZM1777.05 16.2846H1769.69V25.2156H1776.86C1780.37 25.2156 1782.81 23.5861 1782.81 20.6718C1782.81 17.7574 1780.65 16.2846 1777.08 16.2846H1777.05Z"/>
+  </symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="index.html" aria-label="Draper — home">
+      <svg class="logo" viewBox="0 0 1800 219" preserveAspectRatio="xMinYMid meet" aria-hidden="true" focusable="false"><use href="#draper"/></svg>
+    </a>
+
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+      <svg viewBox="0 0 20 14" aria-hidden="true"><rect y="0" width="20" height="2"/><rect y="6" width="20" height="2"/><rect y="12" width="20" height="2"/></svg>
+    </button>
+
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="index.html#breadth" aria-current="true">What we do</a>
+      <a href="index.html#work">Our work</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#partner">Partner with us</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#news">Newsroom</a>
+      <a class="btn btn-primary" href="index.html#careers">Careers <svg class="caret"><use href="#caret"/></svg></a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ===== PAGE HEAD ===== -->
+  <div class="pagehead">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <svg class="caret"><use href="#caret"/></svg>
+        <a href="index.html#breadth">What we do</a>
+        <svg class="caret"><use href="#caret"/></svg>
+        <span aria-current="page">Navigation without GPS</span>
+      </nav>
+
+      <div class="pagehead-grid">
+
+      <h1>Navigation without GPS</h1>
+
+      <div class="answer">
+        <p>Draper builds navigation systems that keep working when satellite signals don't. Our inertial sensors, estimation algorithms, and alternative navigation methods hold position and attitude through jamming, spoofing, deep water, and deep space — environments where GPS is denied, degraded, or was never available.</p>
+      </div>
+
+      <div class="spans">
+        <a class="span-tag" href="index.html#breadth">
+          <svg class="caret"><use href="#caret"/></svg>
+          Strategic Systems
+        </a>
+        <a class="span-tag" href="index.html#breadth">
+          <svg class="caret"><use href="#caret"/></svg>
+          Space Systems
+        </a>
+        <a class="span-tag" href="index.html#breadth">
+          <svg class="caret"><use href="#caret"/></svg>
+          Electronic Systems
+        </a>
+        </div>
+
+        <div class="page-mark-wrap">
+          <svg class="page-mark" viewBox="0 0 120 120" role="img" aria-labelledby="capicon" focusable="false">
+        <title id="capicon">Navigation without GPS</title>
+        <circle cx="60" cy="60" r="48" fill="none" stroke="var(--rule)" stroke-width="1.4"/>
+        <circle cx="60" cy="60" r="30" fill="none" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="60.00" y1="21.00" x2="60.00" y2="12.00" stroke="var(--ink-mute)" stroke-width="1.6"/>
+        <line x1="71.13" y1="18.47" x2="72.42" y2="13.64" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="81.50" y1="22.76" x2="84.00" y2="18.43" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="90.41" y1="29.59" x2="93.94" y2="26.06" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="97.24" y1="38.50" x2="101.57" y2="36.00" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="101.53" y1="48.87" x2="106.36" y2="47.58" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="99.00" y1="60.00" x2="108.00" y2="60.00" stroke="var(--ink-mute)" stroke-width="1.6"/>
+        <line x1="101.53" y1="71.13" x2="106.36" y2="72.42" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="97.24" y1="81.50" x2="101.57" y2="84.00" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="90.41" y1="90.41" x2="93.94" y2="93.94" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="81.50" y1="97.24" x2="84.00" y2="101.57" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="71.13" y1="101.53" x2="72.42" y2="106.36" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="60.00" y1="99.00" x2="60.00" y2="108.00" stroke="var(--ink-mute)" stroke-width="1.6"/>
+        <line x1="48.87" y1="101.53" x2="47.58" y2="106.36" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="38.50" y1="97.24" x2="36.00" y2="101.57" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="29.59" y1="90.41" x2="26.06" y2="93.94" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="22.76" y1="81.50" x2="18.43" y2="84.00" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="18.47" y1="71.13" x2="13.64" y2="72.42" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="21.00" y1="60.00" x2="12.00" y2="60.00" stroke="var(--ink-mute)" stroke-width="1.6"/>
+        <line x1="18.47" y1="48.87" x2="13.64" y2="47.58" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="22.76" y1="38.50" x2="18.43" y2="36.00" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="29.59" y1="29.59" x2="26.06" y2="26.06" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="38.50" y1="22.76" x2="36.00" y2="18.43" stroke="var(--rule)" stroke-width="1"/>
+        <line x1="48.87" y1="18.47" x2="47.58" y2="13.64" stroke="var(--rule)" stroke-width="1"/>
+        <path d="M74.83 14.35 A48 48 0 0 1 107.88 56.65" fill="none" stroke="var(--ink-mute)" stroke-width="1.4" stroke-dasharray="3 5" stroke-linecap="round"/>
+        <line x1="60" y1="14" x2="60" y2="24" stroke="var(--ink)" stroke-width="2"/>
+        <path d="M697.844 13.4062L619.756 217.315H668.35L728.027 57.0584L787.705 217.315H836.299L758.211 13.4062H697.844Z" transform="translate(60,60) rotate(-38) scale(0.13854) translate(-728.0275,-115.3605)" fill="var(--orange)"/>
+        </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION NAV ===== -->
+  <nav class="subnav" aria-label="On this page">
+    <div class="wrap">
+      <a href="#overview">Overview</a>
+      <a href="#approach">How we approach it</a>
+      <a href="#work">Where it's applied</a>
+      <a href="#research">Publications</a>
+      <a href="#people">Who works on this</a>
+      <a href="#related">Related capabilities</a>
+    </div>
+  </nav>
+
+  <!-- ===== OVERVIEW ===== -->
+  <section class="section" id="overview">
+    <div class="wrap">
+      <div class="overview-grid">
+        <div class="prose">
+      <h2>The signal is the weakest link.</h2>
+      <p>Almost everything that moves now assumes a satellite is telling it where it is. That assumption fails in more places than most systems account for: under water, under a jungle canopy, inside a contested airspace, beneath the surface of another planet. It also fails on purpose, because a signal that can be received can be jammed or imitated.</p>
+      <p>Draper has worked on this problem since the beginning. The organization's founding work was inertial guidance — determining position from a system's own motion rather than from an outside reference — and that lineage runs directly into the sensors, filters, and flight software we build today.</p>
+      <p>What has changed is the range of environments. The same underlying question now has to be answered for a submarine, a satellite, a lunar lander, and a hand-carried device, each with different constraints on power, size, and how much error is survivable.</p>
+        </div>
+
+        <figure class="frame frame-side" style="margin:0"><svg class="ghost" aria-hidden="true"><use href="#caret"/></svg><img src="img/cap-navigation-hero.jpg" alt="An operator at a control station monitoring a tracking display" onerror="this.closest('.frame').classList.add('is-empty');this.remove()"><figcaption class="shotnote"><svg class="caret"><use href="#caret"/></svg>Operator at a tracking console</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== APPROACH ===== -->
+  <section class="section section-tint" id="approach">
+    <div class="wrap">
+      <h2>How we approach it</h2>
+      <div class="approach">
+
+        <div class="approach-item">
+          <h3>
+            <svg class="caret"><use href="#caret"/></svg>
+            We build the sensor, not just the system
+          </h3>
+          <p>Navigation accuracy is bounded by the physics of the measuring device. Developing inertial sensors in-house — rather than integrating someone else's — means the performance ceiling is ours to move.</p>
+        </div>
+
+        <div class="approach-item">
+          <h3>
+            <svg class="caret"><use href="#caret"/></svg>
+            Every input is imperfect, so fuse them
+          </h3>
+          <p>No single reference is trustworthy alone. Estimation and sensor fusion combine inertial data with terrain, celestial, magnetic, and signal-of-opportunity references, weighting each by how much it can be believed at that moment.</p>
+        </div>
+
+        <div class="approach-item">
+          <h3>
+            <svg class="caret"><use href="#caret"/></svg>
+            It has to survive the environment it's for
+          </h3>
+          <p>An algorithm that works in simulation is not a navigation system. Packaging, thermal behavior, radiation tolerance, and qualification testing decide whether the work reaches the field.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHERE IT'S APPLIED ===== -->
+  <section class="section" id="work">
+    <div class="wrap">
+      <h2>Where it's applied</h2>
+      <div class="evidence">
+
+        <a class="entry" href="#work">
+          <span class="frame frame-thumb"><svg class="ghost" aria-hidden="true"><use href="#caret"/></svg><img src="img/cap-undersea.jpg" alt="" onerror="this.closest('.frame').classList.add('is-empty');this.remove()"><span class="shotnote"><svg class="caret"><use href="#caret"/></svg>Supporting image</span></span>
+          <span class="entry-market">Strategic Systems</span>
+          <h3>
+            <svg class="caret"><use href="#caret"/></svg>
+            Undersea and sea-based guidance
+          </h3>
+          <p>Position held over long submerged transits, where no external reference is available for the duration of the mission.</p>
+        </a>
+
+        <a class="entry" href="#work">
+          <span class="frame frame-thumb"><svg class="ghost" aria-hidden="true"><use href="#caret"/></svg><img src="img/cap-lunar.jpg" alt="" onerror="this.closest('.frame').classList.add('is-empty');this.remove()"><span class="shotnote"><svg class="caret"><use href="#caret"/></svg>Supporting image</span></span>
+          <span class="entry-market">Space Systems</span>
+          <h3>
+            <svg class="caret"><use href="#caret"/></svg>
+            Lunar descent and landing
+          </h3>
+          <p>Terrain-relative navigation and autonomous hazard avoidance for landing on a surface with no atmosphere and no GPS constellation.</p>
+        </a>
+
+        <a class="entry" href="#work">
+          <span class="frame frame-thumb"><svg class="ghost" aria-hidden="true"><use href="#caret"/></svg><img src="img/cap-mems.jpg" alt="" onerror="this.closest('.frame').classList.add('is-empty');this.remove()"><span class="shotnote"><svg class="caret"><use href="#caret"/></svg>Supporting image</span></span>
+          <span class="entry-market">Electronic Systems</span>
+          <h3>
+            <svg class="caret"><use href="#caret"/></svg>
+            Miniaturized inertial measurement
+          </h3>
+          <p>MEMS-scale devices that bring navigation-grade performance into size, weight, and power budgets that were previously out of reach.</p>
+        </a>
+
+      </div>
+      <p class="more">
+        <a class="textlink" href="index.html#work">
+          See all navigation work
+          <svg class="caret"><use href="#caret"/></svg>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== PUBLICATIONS ===== -->
+  <section class="section section-ink" id="research">
+    <div class="wrap">
+      <h2>Published on this subject</h2>
+      <ul class="papers">
+        <li><a href="index.html#research">
+          <h3>Low-drift inertial measurement in GPS-denied environments</h3>
+          <p class="meta">Technical report<br>Strategic Systems</p>
+        </a></li>
+        <li><a href="index.html#research">
+          <h3>Terrain-relative navigation for autonomous planetary descent</h3>
+          <p class="meta">Conference<br>Space Systems</p>
+        </a></li>
+        <li><a href="index.html#research">
+          <h3>Sensor fusion under intermittent and adversarial reference signals</h3>
+          <p class="meta">Peer-reviewed<br>Strategic Systems</p>
+        </a></li>
+      </ul>
+      <p class="more">
+        <a class="textlink" href="index.html#research">
+          Search the research library
+          <svg class="caret"><use href="#caret"/></svg>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== PEOPLE ===== -->
+  <section class="section" id="people">
+    <div class="wrap">
+      <h2>Who works on this</h2>
+      <div class="disciplines">
+        <div>
+          <h3>
+            <svg class="caret"><use href="#caret"/></svg>
+            Guidance, navigation and control
+          </h3>
+          <p>Systems engineers who own the end-to-end behavior, from sensor error budget to flight software.</p>
+        </div>
+        <div>
+          <h3>
+            <svg class="caret"><use href="#caret"/></svg>
+            Device physics and microfabrication
+          </h3>
+          <p>Researchers building the inertial sensors themselves, in Draper's own fabrication and test facilities.</p>
+        </div>
+        <div>
+          <h3>
+            <svg class="caret"><use href="#caret"/></svg>
+            Estimation and autonomy
+          </h3>
+          <p>Algorithm developers working on filtering, fusion, and decision-making under uncertainty — several of them Draper Scholars.</p>
+        </div>
+      </div>
+      <p class="more">
+        <a class="textlink" href="index.html#careers">
+          Open roles in this area
+          <svg class="caret"><use href="#caret"/></svg>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== RELATED ===== -->
+  <section class="section section-tint" id="related">
+    <div class="wrap">
+      <h2>Related capabilities</h2>
+      <div class="related">
+
+        <a href="capability.html">
+          <svg class="caret"><use href="#caret"/></svg>
+          <h3>Autonomy</h3>
+          <p>Systems that decide and act without a link back to an operator.</p>
+        </a>
+
+        <a href="capability.html">
+          <svg class="caret"><use href="#caret"/></svg>
+          <h3>Precision timing</h3>
+          <p>Clocks stable enough to serve as a reference when nothing else can be trusted.</p>
+        </a>
+
+        <a href="capability.html">
+          <svg class="caret"><use href="#caret"/></svg>
+          <h3>Microelectronics</h3>
+          <p>Fabrication and packaging that fit capability into constrained hardware.</p>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="section section-orange">
+    <div class="wrap">
+      <div class="cta">
+        <div>
+          <h2>Bring us the version of this that doesn't work yet.</h2>
+          <p>Draper takes on problems at the point where the existing approach runs out, whether that's a research question or a system that has to be qualified and delivered.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-ghost" href="index.html#partner">Start a project</a>
+          <a class="btn btn-ghost" href="index.html#careers">See open roles</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot" id="partner">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <span class="wordmark">
+          <svg class="logo" viewBox="0 0 1800 219" preserveAspectRatio="xMinYMid meet" aria-hidden="true" focusable="false"><use href="#draper"/></svg>
+        </span>
+        <address>
+          555 Technology Square<br>
+          Cambridge, MA 02139
+        </address>
+      </div>
+
+      <div>
+        <h3>Work with us</h3>
+        <ul>
+          <li><a href="index.html#partner">Start a project</a></li>
+          <li><a href="index.html#partner">Technology licensing</a></li>
+          <li><a href="index.html#partner">DraperSPARX</a></li>
+          <li><a href="index.html#partner">Suppliers</a></li>
+          <li><a href="index.html#partner">University collaboration</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="index.html#work">Our work</a></li>
+          <li><a href="index.html#research">Research library</a></li>
+          <li><a href="index.html#news">Newsroom</a></li>
+          <li><a href="index.html#about">Draper Museum</a></li>
+          <li><a href="index.html#about">Our history</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Join us</h3>
+        <ul>
+          <li><a href="index.html#careers">Open roles</a></li>
+          <li><a href="index.html#careers">Draper Scholars</a></li>
+          <li><a href="index.html#careers">Internships</a></li>
+          <li><a href="index.html#careers">Veterans</a></li>
+          <li><a href="index.html#careers">Life at Draper</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-base">
+      <span>Concept prototype — Stacey Rice</span>
+      <span><a href="#">Accessibility statement</a> &nbsp; <a href="#">Privacy</a> &nbsp; <a href="#">Contact</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var btn = document.getElementById('menuBtn');
+  var nav = document.getElementById('nav');
+  btn.addEventListener('click', function () {
+    var open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+</script>
+
+</body>
+</html>

@@ -1,639 +1,784 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Stace Rice — Senior UX and Web Strategist specializing in accessibility, SEO, and digital experience design.">
-  <title>Stace Rice — UX & Web Strategist</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    /* === TOKENS === */
-    :root {
-      --navy:      #1B2A4A;
-      --slate:     #2E4A7A;
-      --teal:      #2ABFBF;
-      --teal-text: #147070;
-      --grey-mid:  #8A9BB0;
-      --grey-light:#F0F2F5;
-      --white:     #FFFFFF;
-      --text:      #1B2A4A;
-      --text-muted:#5A6A82;
-      --radius:    4px;
-      --max-w:     1100px;
-      --gap:       clamp(2rem, 5vw, 4rem);
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Draper — Independent engineering, concept to fielded system</title>
+<meta name="description" content="Draper is an independent, nonprofit engineering innovation company working across biotechnology, electronic, strategic, and space systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DRAPER — "CARET" DESIGN SYSTEM
+   Concept prototype. Stacey Rice.
 
-    /* === RESET === */
-    /* === SHARED LABEL UTILITY === */
-    .label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--teal-text);
-    }
+   Palette is Draper's published external brand guide, extended
+   with contrast-tested interface values.
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--text);
-      background: var(--white);
-    }
-    img { max-width: 100%; display: block; }
-    a { color: inherit;
-    text-decoration: underline;
-    }
-    a:focus-visible {
-      outline: 2px solid var(--teal);
-      outline-offset: 3px;
-      border-radius: var(--radius);
-    text-decoration: none;
-    }
+   Brand (fixed):     Orange #FF4611 · Black #10181F · White #FFFFFF
+   Tested ratios:     Ink/White 17.91  Orange/Ink 5.23  Orange/White 3.42
+   Derived rule:      Orange never carries body text on white (3.42 < 4.5).
+                      Text on orange fields is Ink, not White (white = 3.42).
+   ============================================================ */
 
-    /* === SKIP LINK === */
-    .skip-link {
-      position: absolute;
-      top: -100%;
-      left: 1rem;
-      background: var(--teal);
-      color: var(--white);
-      padding: 0.5rem 1rem;
-      border-radius: var(--radius);
-      font-weight: 600;
-      z-index: 9999;
-      text-decoration: none;
-    }
-    .skip-link:focus { top: 1rem; }
+:root{
+  /* Brand — from Draper external style guide */
+  --orange:#FF4611;      /* primary — carries the caret and display type */
+  --orange-3:#FF6333;    /* tertiary — large fields only. Ink 6.04:1; white 2.96:1 fails, so no white caret here */
+  --ink:#10181F;
+  --paper:#FFFFFF;
 
-    /* === LAYOUT === */
-    .container {
-      width: 100%;
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 clamp(1.25rem, 5vw, 3rem);
-    }
+  /* Extended interface palette — each value contrast-tested */
+  --paper-2:#EFEBE3;      /* warm neutral, one step below paper-3 */
+  --paper-3:#F6F4EE;     /* warm ground — ink 16.28:1, ink-mute 6.42:1 */      /* tint of Draper Black, not a warm cream */
+  --rule:#DBD5C9;         /* warm hairline */
+  --ink-mute:#4E5A65;     /* 7.06:1 on white */
+  --orange-text:#B82D08;  /* 6.15:1 on white — orange at body size */
 
-    /* === NAV === */
-    nav {
-      position: sticky;
-      top: 0;
-      background: var(--white);
-      border-bottom: 1px solid var(--grey-light);
-      z-index: 100;
-    }
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-    }
-    .nav-logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.2rem;
-      color: var(--navy);
-      text-decoration: none;
-      letter-spacing: 0.01em;
-    }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-    .nav-links a {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      text-decoration: none;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--teal-text); text-decoration: none;
-    }
+  --measure:62ch;
+  --gutter:clamp(1.25rem,5vw,4.5rem);
+  --bar:clamp(3.5rem,7vw,6rem);
+  --tilepad:clamp(1rem,1.8vw,1.75rem);
+}
 
-    /* === HERO === */
-    .hero {
-      padding: clamp(4rem, 10vw, 8rem) 0 clamp(3rem, 7vw, 6rem);
-      border-bottom: 1px solid var(--grey-light);
-    }
-    .hero-eyebrow {font-size: 0.8rem;
-      margin-bottom: 1.25rem; }
-    .hero-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(3rem, 8vw, 6rem);
-      line-height: 1.05;
-      color: var(--navy);
-      margin-bottom: 1.5rem;
-      position: relative;
-      display: inline-block;
-    }
-    .hero-name::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      height: 3px;
-      width: 0;
-      background: var(--teal);
-      border-radius: 2px;
-      animation: underline-draw 0.8s ease forwards 0.3s;
-    }
-    @keyframes underline-draw {
-      to { width: 100%; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .hero-name::after { animation: none; width: 100%; }
-    }
-    .hero-title {
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      color: var(--text-muted);
-      font-weight: 400;
-      max-width: 600px;
-      margin-bottom: 2.5rem;
-    }
-    .hero-stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2.5rem;
-      margin-top: 3rem;
-    }
-    .stat-item { }
-    .stat-number {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 4vw, 2.75rem);
-      color: var(--slate);
-      line-height: 1;
-      display: block;
-    }
-    .stat-label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-top: 0.25rem;
-      display: block;
-    }
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--navy);
-      color: var(--white);
-      text-decoration: none;
-      padding: 0.75rem 1.75rem;
-      border-radius: var(--radius);
-      font-weight: 600;
-      font-size: 0.9rem;
-      letter-spacing: 0.02em;
-      transition: background 0.2s;
-    }
-    .hero-cta:hover { background: var(--slate); text-decoration: none;
-    }
+*,*::before,*::after{box-sizing:border-box}
 
-    /* === SECTION === */
-    section { padding: var(--gap) 0; }
-    .section-label {margin-bottom: 1rem; }
-    .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.75rem, 4vw, 2.5rem);
-      color: var(--navy);
-      margin-bottom: 1rem;
-    }
-    .section-intro {
-      color: var(--text-muted);
-      max-width: 600px;
-      margin-bottom: 3rem;
-      font-size: 1.05rem;
-    }
-    .section-divider {
-      border: none;
-      border-top: 1px solid var(--grey-light);
-    }
+html{-webkit-text-size-adjust:100%}
 
-    /* === CASE STUDIES === */
-    .case-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-      gap: 1.5rem;
-    }
-    .case-card {
-      background: var(--grey-light);
-      border-radius: var(--radius);
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-      text-decoration: none;
-      color: inherit;
-      border: 1px solid transparent;
-    }
-    .case-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(27,42,74,0.08);
-      border-color: var(--teal);
-    }
-    .case-tag {}
-    .case-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.35rem;
-      color: var(--navy);
-      line-height: 1.3;
-    }
-    .case-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      flex: 1;
-    }
-    .case-metric {
-      display: inline-block;
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.5rem;
-      color: var(--slate);
-      border-top: 1px solid var(--grey-mid);
-      padding-top: 0.75rem;
-      width: 100%;
-    }
-    .case-metric span {
-      display: block;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-top: 0.15rem;
-    }
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Archivo','Helvetica Neue',Arial,sans-serif;
+  font-variation-settings:'wdth' 100,'wght' 400;
+  font-size:clamp(1rem,.96rem + .2vw,1.0625rem);
+  line-height:1.6;
+  font-variant-numeric:tabular-nums;
+}
 
-    /* === SKILLS === */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
-      gap: 1.5rem;
-    }
-    .skill-group { }
-    .skill-group-title {letter-spacing: 0.1em;
-      margin-bottom: 0.75rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--grey-light); }
-    .skill-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-    .skill-list li {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
+h1,h2,h3{margin:0;line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
 
-    /* === ABOUT === */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-    .about-text p {
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-      font-size: 1.05rem;
-    }
-    .about-credentials { }
-    .credential-item {
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--grey-light);
-    }
-    .credential-item:first-child { border-top: 1px solid var(--grey-light); }
-    .credential-title {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--navy);
-    }
-    .credential-org {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-    .credential-badge {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--teal-text);
-      background: rgba(42,191,191,0.08);
-      padding: 0.2rem 0.5rem;
-      border-radius: var(--radius);
-      margin-top: 0.25rem;
-    }
+:focus-visible{
+  outline:3px solid var(--orange);
+  outline-offset:3px;
+  border-radius:1px;
+}
 
-    /* === CONTACT === */
-    .contact-section {
-      background: var(--navy);
-      color: var(--white);
-      padding: var(--gap) 0;
-    }
-    .contact-section .section-label {color: var(--teal); } /* #2ABFBF on navy #1B2A4A = 6.30:1 — passes AA */
-    .contact-section .section-title { color: var(--white); }
-    .contact-section .section-intro { color: var(--grey-mid); }
-    .contact-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    .contact-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: var(--radius);
-      text-decoration: none;
-      color: var(--white);
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .contact-link:hover {
-      border-color: var(--teal);
-      background: rgba(42,191,191,0.08);
-    }
+.skip{
+  position:absolute;left:var(--gutter);top:-6rem;z-index:99;
+  background:var(--ink);color:var(--paper);
+  padding:.75rem 1.25rem;text-decoration:none;
+  transition:top .15s;
+}
+.skip:focus{top:1rem}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 
-    /* === FOOTER === */
-    footer {
-      background: var(--navy);
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 1.5rem 0;
-      text-align: center;
-    }
-    footer p {
-      font-size: 0.8rem;
-      color: var(--grey-mid);
-    }
+.wrap{
+  max-width:82rem;margin:0 auto;
+  padding-inline:var(--gutter);
+}
 
-    /* === RESPONSIVE === */
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .hero-stats { gap: 1.5rem; }
-    }
-    @media (max-width: 480px) {
-      .hero-stats { flex-direction: column; gap: 1.25rem; }
-    }
-  </style>
+/* ---------- The caret ---------- */
+
+/* ---------- Image frames ----------
+   Real photography drops into /img. Until a shot exists, each frame
+   shows the art-direction note naming the image it needs. */
+.frame{position:relative;overflow:hidden;background:var(--ink);display:block}
+.frame::before{content:"";position:absolute;inset:0;background:linear-gradient(148deg,#0B1218 0%,#1C2833 58%,#3A2419 100%)}
+.frame .ghost{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:34%;height:auto;color:var(--orange);opacity:.2}
+.frame img{position:relative;z-index:2;display:block;width:100%;height:100%;object-fit:cover}
+.shotnote{display:none;position:absolute;z-index:3;inset:auto 0 0 0;padding:.85rem 1rem;background:rgba(11,18,24,.74);color:var(--paper);font-size:1rem;line-height:1.35}
+.shotnote .caret{color:var(--orange);width:.5em;height:.47em;margin-right:.45em}
+.frame.is-empty .shotnote{display:block}
+.frame-wide{aspect-ratio:24/9}
+.frame-tile{aspect-ratio:4/3;margin-bottom:1.25rem}
+.area:nth-child(2) .frame-tile img{object-position:18% center}
+.area:nth-child(3) .frame-tile img{object-position:30% center}
+.frame-thumb{aspect-ratio:3/2}
+.frame-tall{aspect-ratio:4/5}
+.frame-band{aspect-ratio:3/1;margin:clamp(2.25rem,5vw,3.5rem) 0 0}
+.frame-band img{object-position:50% 44%}
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+
+.caret{
+  display:inline-block;width:.765em;height:.72em;
+  fill:currentColor;flex:none;
+  vertical-align:baseline;
+}
+
+/* ============================================================
+   MASTHEAD
+   ============================================================ */
+.masthead{
+  border-bottom:1px solid var(--rule);
+  position:relative;z-index:20;background:var(--paper);
+}
+.masthead .wrap{
+  display:flex;align-items:center;gap:clamp(1rem,3vw,2.5rem);
+  min-height:var(--bar);
+}
+
+/* Official Draper wordmark. Both approved versions from one asset:
+   .lm-word inherits currentColor (Draper Black on light, white on dark);
+   .lm-caret always carries Draper Orange. */
+.wordmark{
+  display:flex;align-items:center;justify-content:flex-start;
+  text-decoration:none;color:var(--ink);
+  margin-right:auto;
+}
+.logo{display:block;flex:none;height:clamp(1.15rem,1.9vw,1.5rem);width:auto;aspect-ratio:1800/219}
+
+.nav{display:flex;align-items:center;gap:clamp(.9rem,2vw,1.9rem)}
+.nav a:not(.btn){
+  text-decoration:none;
+  font-variation-settings:'wght' 500;
+  font-size:1rem;
+  padding:.55rem 0;
+  border-bottom:2px solid transparent;
+  transition:border-color .12s,color .12s;
+}
+.nav a:not(.btn):hover{color:var(--orange-text);border-bottom-color:var(--orange)}
+
+.btn{
+  display:inline-flex;align-items:center;gap:.5em;
+  padding:.7rem 1.35rem;min-height:44px;
+  text-decoration:none;
+  font-size:1rem;
+  font-variation-settings:'wght' 650;
+  text-transform:uppercase;letter-spacing:.065em;
+  border:2px solid var(--ink);
+  transition:background .14s,color .14s,border-color .14s;
+}
+/* Ink on orange = 5.23:1. White on orange would be 3.42:1 and fail. */
+.btn-primary{background:var(--orange);border-color:var(--orange);color:var(--ink)}
+.btn-primary:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper)}
+
+.menu-btn{
+  display:none;align-items:center;justify-content:center;
+  width:44px;height:44px;padding:0;
+  background:none;border:1px solid var(--rule);
+  color:var(--ink);cursor:pointer;
+}
+.menu-btn svg{width:20px;height:14px;fill:currentColor}
+
+/* ============================================================
+   HERO — the one bold moment
+   ============================================================ */
+.hero{padding:0}
+
+/* Content column aligns to the page grid; the image runs off the right edge. */
+.hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,.8fr);
+  align-items:stretch;
+  gap:clamp(2rem,4vw,4.5rem);
+  padding-left:max(var(--gutter), calc((100vw - 82rem)/2 + var(--gutter)));
+}
+.hero-content{
+  padding-block:clamp(3rem,7vw,5.5rem);
+  align-self:center;
+  max-width:44rem;
+}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:.6em;
+  font-variation-settings:'wght' 600;
+  font-size:clamp(1rem,1.4vw,1.125rem);
+  color:var(--ink-mute);margin-bottom:clamp(1.25rem,3vw,2rem);
+}
+.hero-eyebrow .caret{color:var(--orange)}
+.hero h1{
+  font-variation-settings:'wdth' 116,'wght' 800;
+  font-size:clamp(2.5rem,5.6vw,5.25rem);
+  line-height:.94;letter-spacing:-.028em;
+  color:var(--orange);          /* display scale only — 3.42:1 passes ≥24px */
+  max-width:14ch;
+}
+.hero-body{margin-top:clamp(1.75rem,3.5vw,2.5rem)}
+.hero-body p{max-width:46ch;font-size:clamp(1.0625rem,1.4vw,1.1875rem);color:var(--ink-mute)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:clamp(1.5rem,3vw,2.25rem)}
+
+.hero-figure{margin:0;min-height:clamp(24rem,42vw,36rem);height:100%}
+.hero-figure img{object-position:66% center}
+
+/* ============================================================
+   WHAT WE DO — market areas with proof attached
+   ============================================================ */
+.breadth{border-top:1px solid var(--ink);background:var(--paper-3)}
+.breadth-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+.breadth-grid{margin-inline:calc(-1 * var(--tilepad))}
+.area{padding-inline:var(--tilepad);border-right:1px solid var(--rule)}
+.area:last-child{border-right:0}
+.area h2{font-variation-settings:'wdth' 104,'wght' 700;font-size:clamp(1.0625rem,1.7vw,1.375rem);margin-bottom:.5rem}
+.area h2 a{display:flex;align-items:baseline;gap:.5em;text-decoration:none}
+.area h2 .caret{color:var(--orange);width:.58em;height:.55em}
+.area h2 a:hover{color:var(--orange-text)}
+.area p{font-size:1rem;color:var(--ink-mute);line-height:1.5}
+
+.proof{display:block;margin-top:1.25rem;padding-top:1.1rem;border-top:1px solid var(--rule);text-decoration:none}
+.proof-label{display:block;font-size:1rem;color:var(--ink-mute);margin-bottom:.3rem}
+.proof-title{display:flex;align-items:baseline;gap:.5em;font-variation-settings:'wght' 650;line-height:1.35}
+.proof-title .caret{color:var(--orange);width:.55em;height:.52em}
+.proof:hover .proof-title{color:var(--orange-text)}
+
+/* ============================================================
+   HERITAGE
+   ============================================================ */
+.heritage{display:grid;gap:clamp(1.75rem,4vw,4rem);grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:center}
+.frame-museum{aspect-ratio:3/2}   /* matches the archive print — no crop */
+.heritage h2{font-variation-settings:'wdth' 110,'wght' 750;font-size:clamp(1.625rem,3.4vw,2.5rem);max-width:18ch;margin-bottom:1.25rem}
+.heritage p{color:var(--ink-mute);max-width:56ch;margin-bottom:1.15rem}
+.museum{margin-top:clamp(1.5rem,3vw,2.25rem);padding-top:1.5rem;border-top:1px solid var(--rule)}
+.museum h3{display:flex;align-items:baseline;gap:.5em;font-variation-settings:'wght' 700;font-size:1.25rem;margin-bottom:.6rem}
+.museum h3 .caret{color:var(--orange);width:.55em;height:.52em}
+
+/* ============================================================
+   SHARED SECTION FURNITURE
+   ============================================================ */
+.section{padding-block:clamp(3.5rem,8vw,6.5rem)}
+.section-tint{background:var(--paper-2)}
+.section-ink{background:var(--ink);color:var(--paper)}
+
+.section-head{
+  display:grid;gap:1.25rem clamp(2rem,5vw,4rem);
+  grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
+  align-items:end;
+  margin-bottom:clamp(2rem,4.5vw,3.25rem);
+}
+.section-head h2{
+  font-variation-settings:'wdth' 110,'wght' 750;
+  font-size:clamp(1.75rem,4vw,3rem);
+  max-width:18ch;
+}
+.section-head p{color:var(--ink-mute);max-width:46ch}
+.section-ink .section-head p{color:#B4BEC7}
+
+.textlink{
+  display:inline-flex;align-items:center;gap:.5em;
+  color:var(--orange-text);text-decoration:none;
+  font-variation-settings:'wght' 600;
+  border-bottom:2px solid var(--orange);
+  padding-bottom:2px;
+}
+.textlink .caret{transform:rotate(90deg);width:.64em;height:.6em}
+.textlink:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.more{margin-top:clamp(1.75rem,3.5vw,2.5rem)}
+.breadth .more{margin-top:clamp(3rem,6vw,4.5rem)}
+.section-ink .textlink{color:var(--orange-3);border-bottom-color:var(--orange-3)}
+.section-ink .textlink:hover{color:var(--paper);border-bottom-color:var(--paper)}
+
+/* ============================================================
+   RESEARCH — the citation layer
+   ============================================================ */
+.finder{
+  border:2px solid var(--paper);
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+}
+.finder input{
+  font:inherit;color:var(--paper);background:transparent;
+  border:0;padding:1rem 1.25rem;min-height:56px;width:100%;
+}
+.finder input::placeholder{color:#8C99A4}
+.finder button{
+  font:inherit;font-variation-settings:'wght' 600;
+  background:var(--orange);color:var(--ink);
+  border:0;padding:0 1.5rem;min-height:56px;cursor:pointer;
+}
+.finder button:hover{background:var(--paper)}
+
+.facets{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.facet{
+  font:inherit;font-size:1rem;font-variation-settings:'wght' 500;
+  background:transparent;color:var(--paper);
+  border:1px solid #3B4650;padding:.5rem .95rem;min-height:44px;cursor:pointer;
+}
+.facet{display:inline-flex;align-items:center;gap:.5em}
+.facet .caret{color:var(--orange-3);width:.5em;height:.47em}
+.facet[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:var(--ink);font-variation-settings:'wght' 650}
+.facet[aria-pressed="true"] .caret{color:var(--paper)}
+.facet:hover{border-color:var(--paper)}
+
+.papers{list-style:none;margin:clamp(2rem,4vw,3rem) 0 0;padding:0;border-top:1px solid #2A343E}
+.papers li{border-bottom:1px solid #2A343E}
+.papers a{
+  display:grid;gap:.35rem clamp(1.5rem,4vw,3rem);
+  grid-template-columns:minmax(0,1fr) minmax(0,12rem);
+  padding-block:1.35rem;text-decoration:none;
+}
+.papers h3{
+  font-variation-settings:'wght' 600;
+  font-size:1.0625rem;line-height:1.35;max-width:52ch;
+}
+.papers a:hover h3{color:var(--orange-3)}
+.papers .meta{color:#8C99A4;font-size:1rem;line-height:1.4}
+
+/* ============================================================
+   CAREERS
+   ============================================================ */
+.careers-grid{
+  display:grid;gap:clamp(1.75rem,4vw,3.5rem);
+  grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
+  align-items:center;
+}
+.careers-grid h2{
+  font-variation-settings:'wdth' 112,'wght' 780;
+  font-size:clamp(1.875rem,4.4vw,3.25rem);
+  max-width:15ch;
+}
+.careers-grid p{margin-top:1.25rem;max-width:44ch;font-size:clamp(1rem,1.4vw,1.125rem)}
+.roles{list-style:none;margin:0;padding:0;border-top:1px solid rgba(16,24,31,.28)}
+.roles li{border-bottom:1px solid rgba(16,24,31,.28)}
+.roles a{
+  display:flex;align-items:center;gap:1rem;justify-content:space-between;
+  padding:.95rem 0;text-decoration:none;
+  font-variation-settings:'wght' 600;
+}
+.roles .where{font-variation-settings:'wght' 400;font-size:1rem;opacity:.75}
+.roles a:hover{padding-left:.5rem}
+.careers-actions{margin-top:1.75rem}
+.section-orange .btn-ghost:hover{background:var(--ink);color:var(--orange)}
+
+/* ============================================================
+   INDEPENDENCE
+   ============================================================ */
+.independence{
+  display:grid;gap:clamp(1.5rem,4vw,3.5rem);
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+}
+.independence h2{
+  font-variation-settings:'wdth' 110,'wght' 750;
+  font-size:clamp(1.625rem,3.4vw,2.5rem);
+  max-width:16ch;
+}
+.independence p{color:var(--ink-mute);max-width:var(--measure);margin-bottom:1.25rem}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot{background:var(--ink);color:var(--paper);padding-block:clamp(3rem,6vw,4.5rem) 2rem}
+.foot-grid{
+  display:grid;gap:clamp(1.75rem,4vw,3rem);
+  grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));
+}
+.foot .wordmark{color:var(--paper);margin-right:auto;margin-bottom:1.15rem;justify-content:flex-start}
+.foot .logo{height:1.6rem;width:auto;aspect-ratio:1800/219}
+.foot address{font-style:normal;color:#8C99A4;font-size:1rem;line-height:1.6}
+.foot h3{
+  font-variation-settings:'wght' 650;font-size:1rem;
+  margin-bottom:.9rem;
+}
+.foot ul{list-style:none;margin:0;padding:0}
+.foot li{margin-bottom:.55rem}
+.foot li a{color:#B4BEC7;text-decoration:none;font-size:1rem}
+.foot li a:hover{color:var(--orange-3)}
+.foot-base{
+  margin-top:clamp(2.5rem,5vw,3.5rem);padding-top:1.5rem;
+  border-top:1px solid #2A343E;
+  display:flex;flex-wrap:wrap;gap:.75rem 2rem;justify-content:space-between;
+  color:#8C99A4;font-size:1rem;
+}
+.foot-base a{color:#8C99A4}
+
+/* ============================================================
+   MOTION — one orchestrated load, nothing scroll-triggered
+   ============================================================ */
+@media (prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(14px);animation:rise .62s cubic-bezier(.2,.7,.3,1) forwards}
+  .reveal:nth-child(1){animation-delay:.05s}
+  .reveal:nth-child(2){animation-delay:.16s}
+  .reveal:nth-child(3){animation-delay:.27s}
+  @keyframes rise{to{opacity:1;transform:none}}
+}
+
+/* Tertiary orange softens the large fields; the caret rule below keeps
+   white carets on true Draper Orange, where they clear 3:1. */
+.section-orange{background:var(--orange-3);color:var(--ink)}
+.section-orange .caret{color:var(--ink)}
+
+/* Guide: "When used on the Draper orange, a white caret must be substituted." */
+.btn-primary .caret{color:var(--paper);transform:rotate(90deg);width:.5em;height:.47em}
+.btn-primary:hover .caret{color:var(--orange)}
+.wordmark.on-orange{--logo-caret:#FFFFFF}
+
+/* ============================================================
+   MOTION
+   Two ideas only: images breathe on hover, and carets move the
+   way they point. Nothing is scroll-triggered, and the whole
+   block is gated on prefers-reduced-motion.
+   ============================================================ */
+
+@media (prefers-reduced-motion:no-preference){
+  .frame img{transition:transform .55s cubic-bezier(.2,.7,.3,1)}
+  .area:hover .frame img,
+  .entry:hover .frame img{transform:scale(1.045)}
+
+  .caret{transition:transform .25s cubic-bezier(.2,.7,.3,1)}
+  .area:hover h2 .caret,
+  .proof:hover .proof-title .caret,
+  .entry:hover h3 .caret{transform:translateY(-4px)}
+  .textlink:hover .caret,
+  .btn:hover .caret{transform:rotate(90deg) translateY(-4px)}
+  .span-tag:hover .caret{transform:translateY(-3px)}
+
+  .hero-figure img{animation:settle 14s cubic-bezier(.16,.7,.3,1) forwards}
+  @keyframes settle{from{transform:scale(1.07)}to{transform:scale(1)}}
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1180px){
+}
+@media (max-width:1080px){
+  .breadth-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(2.25rem,4vw,3rem) 0}
+  .area:nth-child(2n){border-right:0}
+}
+@media (max-width:980px){
+  .nav{
+    display:none;position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);
+    padding:.5rem var(--gutter) 1.5rem;
+  }
+  .nav.open{display:flex}
+  .nav a:not(.btn){padding:.9rem 0;border-bottom:1px solid var(--rule)}
+  .nav .btn{margin-top:1rem;justify-content:center;border-bottom-width:2px}
+  .menu-btn{display:inline-flex}
+  .section-head,.careers-grid,.papers a{grid-template-columns:minmax(0,1fr)}
+  .frame-band{aspect-ratio:2.2/1}
+  .hero-grid{grid-template-columns:minmax(0,1fr);gap:0;padding-left:0}
+  .hero-content{padding-inline:var(--gutter)}
+  .hero-figure{min-height:0;aspect-ratio:16/10}
+  .hero-actions{justify-content:flex-start}
+  .section-head{align-items:start}
+  .foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:700px){
+  .independence{grid-template-columns:minmax(0,1fr)}
+  .heritage{grid-template-columns:minmax(0,1fr)}
+  .heritage .frame{aspect-ratio:16/10}
+}
+@media (max-width:640px){
+  .breadth-grid{grid-template-columns:minmax(0,1fr)}
+  .frame-wide{aspect-ratio:16/10}
+  .frame-band{aspect-ratio:16/9}
+  .breadth-grid{margin-inline:0}
+  .area{padding-inline:0;border-right:0}
+  .finder{grid-template-columns:minmax(0,1fr)}
+  .foot-grid{grid-template-columns:minmax(0,1fr)}
+}
+</style>
 </head>
 <body>
 
-  <a href="#main" class="skip-link">Skip to main content</a>
+<!-- Brand marks defined once, referenced everywhere -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="caret" viewBox="619.756 13.406 216.543 203.909"><path fill="currentColor" d="M697.844 13.4062L619.756 217.315H668.35L728.027 57.0584L787.705 217.315H836.299L758.211 13.4062H697.844Z"/></symbol>
+  <symbol id="draper" viewBox="0 0 1800 219">
+    <path fill="currentColor" d="M105.265 13.4062H0V217.315H105.265C166.007 217.315 180.504 187.514 180.504 148.311V82.4413C180.504 43.2389 166.007 13.4376 105.265 13.4376V13.4062ZM132.693 148.687C132.693 167.521 124.459 176.138 102.541 176.138H48.5936V54.5828H102.541C124.49 54.5828 132.693 63.2005 132.693 82.0339V148.687Z"/>
+    <path fill="currentColor" d="M493.983 100.084V70.6586C493.983 34.5899 476.355 13.4062 422.689 13.4062H313.51V217.315H362.104V157.712H418.776L458.728 217.315H513.959L466.931 147.904C487.69 136.529 493.952 123.21 493.952 100.053L493.983 100.084ZM446.579 97.3263C446.579 111.835 439.91 118.886 421.5 118.886H362.073V53.016H423.065C439.91 53.016 446.579 58.4999 446.579 73.0089V97.3263Z"/>
+    <path fill="var(--logo-caret,#FF4611)" d="M697.844 13.4062L619.756 217.315H668.35L728.027 57.0584L787.705 217.315H836.299L758.211 13.4062H697.844Z"/>
+    <path fill="currentColor" d="M1052.59 13.4062H946.169V217.315H994.763V159.687H1050.28C1103.94 159.687 1123.95 138.91 1123.95 102.058V70.69C1123.95 34.6213 1106.7 13.4376 1052.66 13.4376L1052.59 13.4062ZM1075.7 99.6765C1075.7 113.809 1069.03 120.453 1050.62 120.453H994.731V53.016H1050.62C1069.03 53.016 1075.7 59.2834 1075.7 73.0089V99.6765Z"/>
+    <path fill="currentColor" d="M1242.15 217.315H1398.73V177.329H1290.74V133.395H1391.68V93.0018H1290.74V53.392H1398.73V13.4062H1242.15V217.315Z"/>
+    <path fill="currentColor" d="M1521.59 13.4024V217.311H1570.18V157.709H1626.85L1666.8 217.311H1722.03L1675.01 147.9C1695.76 136.525 1702.03 123.207 1702.03 100.049V70.6235C1702.03 34.5548 1684.4 13.3711 1630.73 13.3711H1521.55L1521.59 13.4024ZM1654.69 73.0051V97.3225C1654.69 111.831 1648.02 118.882 1629.61 118.882H1570.18V53.0122H1631.17C1648.02 53.0122 1654.69 58.4961 1654.69 73.0051Z"/>
+    <path fill="currentColor" d="M1775.48 50.6297C1761.77 50.6297 1751.09 39.5992 1751.09 26.2184C1751.09 12.8375 1761.9 1.68164 1775.61 1.68164C1789.32 1.68164 1800 12.7122 1800 26.093C1800 39.4738 1789.2 50.6297 1775.48 50.6297ZM1775.64 3.78121C1762.93 3.78121 1753.35 13.9343 1753.35 26.2184C1753.35 38.5024 1762.87 48.5302 1775.52 48.5302C1788.16 48.5302 1797.81 38.3771 1797.81 26.093C1797.81 13.809 1788.29 3.78121 1775.64 3.78121ZM1780.15 27.9106L1787.91 37.9697H1783.31L1776.08 28.506H1769.66V37.9697H1765.93V12.9002H1777.14C1782.69 12.9002 1786.6 15.8145 1786.6 20.4837C1786.6 24.6202 1783.91 27.0331 1780.12 27.9106H1780.15ZM1777.05 16.2846H1769.69V25.2156H1776.86C1780.37 25.2156 1782.81 23.5861 1782.81 20.6718C1782.81 17.7574 1780.65 16.2846 1777.08 16.2846H1777.05Z"/>
+  </symbol>
+</svg>
 
-  <!-- NAV -->
-  <nav aria-label="Main navigation">
-    <div class="container">
-      <div class="nav-inner">
-        <a href="#" class="nav-logo" aria-label="Stace Rice home">Stace Rice</a>
-        <ul class="nav-links" role="list">
-          <li><a href="#work">Work</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="index.html" aria-label="Draper — home">
+      <svg class="logo" viewBox="0 0 1800 219" preserveAspectRatio="xMinYMid meet" aria-hidden="true" focusable="false"><use href="#draper"/></svg>
+    </a>
+
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+      <svg viewBox="0 0 20 14" aria-hidden="true"><rect y="0" width="20" height="2"/><rect y="6" width="20" height="2"/><rect y="12" width="20" height="2"/></svg>
+    </button>
+
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="#breadth">What we do</a>
+      <a href="#work">Our work</a>
+      <a href="#research">Research</a>
+      <a href="#partner">Partner with us</a>
+      <a href="#about">About</a>
+      <a href="#news">Newsroom</a>
+      <a class="btn btn-primary" href="#careers">Careers <svg class="caret"><use href="#caret"/></svg></a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-grid">
+
+      <div class="hero-content">
+        <p class="hero-eyebrow reveal">
+          <svg class="caret"><use href="#caret"/></svg>
+          Independent. Nonprofit. Accountable to the problem, not to shareholders.
+        </p>
+        <h1 class="reveal">The hardest problems don't fit in one discipline.</h1>
+        <div class="hero-body reveal">
+          <p>Draper designs, develops, and deploys advanced solutions across biotechnology, electronics, strategic systems, and space — carrying work from first concept to a prototype that survives the field.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#work">See our work <svg class="caret"><use href="#caret"/></svg></a>
+            <a class="btn btn-ghost" href="#partner">Start a project</a>
+          </div>
+        </div>
+      </div>
+
+      <figure class="frame hero-figure">
+        <svg class="ghost" aria-hidden="true"><use href="#caret"/></svg>
+        <img src="img/hero-lab.jpg" alt="A Draper researcher operating a microfluidic instrument in the lab" onerror="this.closest('.frame').classList.add('is-empty');this.remove()">
+        <figcaption class="shotnote"><svg class="caret"><use href="#caret"/></svg>Hero — researcher at a microfluidic instrument</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- ===== WHAT WE DO — markets, each carrying its own proof ===== -->
+  <section class="section breadth" id="breadth">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>The work is the argument.</h2>
+        <p>Four market areas, one company. Nothing on this site claims a capability without something we built attached to it.</p>
+      </div>
+
+      <div class="breadth-grid">
+        <div class="area">
+          <span class="frame frame-tile"><svg class="ghost" aria-hidden="true"><use href="#caret"/></svg><img src="img/area-biotech.jpg" alt="Gloved hands using a micromanipulator over a petri dish in a Draper lab" onerror="this.closest('.frame').classList.add('is-empty');this.remove()"><span class="shotnote"><svg class="caret"><use href="#caret"/></svg>Microfluidic device, macro</span></span>
+          <h2><a href="#work"><svg class="caret"><use href="#caret"/></svg>Biotechnology Systems</a></h2>
+          <p>Engineering applied to human biology — from microphysiological platforms to medical devices and biodefense.</p>
+          <a class="proof" href="#work">
+            <span class="proof-label">Recent work</span>
+            <span class="proof-title"><svg class="caret"><use href="#caret"/></svg>Microphysiological systems</span>
+          </a>
+        </div>
+        <div class="area">
+          <span class="frame frame-tile"><svg class="ghost" aria-hidden="true"><use href="#caret"/></svg><img src="img/area-electronics.jpg" alt="A gloved hand holding a microchip in a cleanroom" onerror="this.closest('.frame').classList.add('is-empty');this.remove()"><span class="shotnote"><svg class="caret"><use href="#caret"/></svg>Wafer handling, cleanroom</span></span>
+          <h2><a href="#work"><svg class="caret"><use href="#caret"/></svg>Electronic Systems</a></h2>
+          <p>Microelectronics, sensing, and secure processing built small enough and rugged enough to deploy.</p>
+          <a class="proof" href="#work">
+            <span class="proof-label">Recent work</span>
+            <span class="proof-title"><svg class="caret"><use href="#caret"/></svg>Miniaturized inertial measurement</span>
+          </a>
+        </div>
+        <div class="area">
+          <span class="frame frame-tile"><svg class="ghost" aria-hidden="true"><use href="#caret"/></svg><img src="img/area-strategic.jpg" alt="A pilot in a fighter cockpit with a wingman aircraft alongside" onerror="this.closest('.frame').classList.add('is-empty');this.remove()"><span class="shotnote"><svg class="caret"><use href="#caret"/></svg>Cockpit, aircraft in formation</span></span>
+          <h2><a href="capability.html"><svg class="caret"><use href="#caret"/></svg>Strategic Systems</a></h2>
+          <p>Guidance, navigation, and control for missions where there is no second attempt.</p>
+          <a class="proof" href="capability.html">
+            <span class="proof-label">Recent work</span>
+            <span class="proof-title"><svg class="caret"><use href="#caret"/></svg>Navigation without GPS</span>
+          </a>
+        </div>
+        <div class="area">
+          <span class="frame frame-tile"><svg class="ghost" aria-hidden="true"><use href="#caret"/></svg><img src="img/area-space.jpg" alt="A spacecraft with deployed solar arrays in orbit above Earth" onerror="this.closest('.frame').classList.add('is-empty');this.remove()"><span class="shotnote"><svg class="caret"><use href="#caret"/></svg>Spacecraft component, clean tent</span></span>
+          <h2><a href="#work"><svg class="caret"><use href="#caret"/></svg>Space Systems</a></h2>
+          <p>Autonomy and precision navigation for spacecraft, landers, and long-duration missions.</p>
+          <a class="proof" href="#work">
+            <span class="proof-label">Recent work</span>
+            <span class="proof-title"><svg class="caret"><use href="#caret"/></svg>Lunar descent and landing</span>
+          </a>
+        </div>
+      </div>
+
+      <p class="more" id="work">
+        <a class="textlink" href="#work">Browse the full portfolio <svg class="caret"><use href="#caret"/></svg></a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== RESEARCH ===== -->
+  <section class="section section-ink" id="research">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Published, cited, and open to read.</h2>
+        <p>Peer-reviewed papers, patents, and technical reports from Draper engineers and scientists — searchable in one place for the first time.</p>
+      </div>
+
+      <div class="finder" role="search">
+        <label class="sr-only" for="q">Search publications</label>
+        <input id="q" type="search" placeholder="Search publications, patents, and authors">
+        <button type="button">Search</button>
+      </div>
+
+      <div class="facets" role="group" aria-label="Filter by type">
+        <button class="facet" type="button" aria-pressed="true"><svg class="caret"><use href="#caret"/></svg> All</button>
+        <button class="facet" type="button" aria-pressed="false"><svg class="caret"><use href="#caret"/></svg> Peer-reviewed</button>
+        <button class="facet" type="button" aria-pressed="false"><svg class="caret"><use href="#caret"/></svg> Patents</button>
+        <button class="facet" type="button" aria-pressed="false"><svg class="caret"><use href="#caret"/></svg> Technical reports</button>
+        <button class="facet" type="button" aria-pressed="false"><svg class="caret"><use href="#caret"/></svg> Conference</button>
+      </div>
+
+      <ul class="papers">
+        <li><a href="#research">
+          <h3>Organ-on-chip platforms for predictive human pharmacokinetic modeling</h3>
+          <p class="meta">Peer-reviewed<br>Biotechnology Systems</p>
+        </a></li>
+        <li><a href="#research">
+          <h3>Fault-tolerant guidance architectures for autonomous planetary descent</h3>
+          <p class="meta">Conference<br>Space Systems</p>
+        </a></li>
+        <li><a href="#research">
+          <h3>Low-drift inertial measurement in GPS-denied environments</h3>
+          <p class="meta">Technical report<br>Strategic Systems</p>
+        </a></li>
+      </ul>
+
+      <p class="more">
+        <a class="textlink" href="#research">
+          Open the research library
+          <svg class="caret"><use href="#caret"/></svg>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== CAREERS ===== -->
+  <section class="section section-orange" id="careers">
+    <div class="wrap">
+      <div class="careers-grid">
+        <div>
+          <h2>Bring us a problem you can't stop thinking about.</h2>
+          <p>Engineers, scientists, and students work side by side here. Draper Scholars pursue graduate degrees while working on funded research, and no one spends a career on a single program.</p>
+          <div class="careers-actions">
+            <a class="btn btn-ghost" href="#careers">See all openings</a>
+          </div>
+        </div>
+
+        <ul class="roles">
+          <li><a href="#careers">GN&amp;C Systems Engineer <span class="where">Cambridge, MA</span></a></li>
+          <li><a href="#careers">Microfluidics Research Scientist <span class="where">Cambridge, MA</span></a></li>
+          <li><a href="#careers">Embedded Software Engineer <span class="where">Huntsville, AL</span></a></li>
+          <li><a href="#careers">Draper Scholars Program <span class="where">Graduate study</span></a></li>
         </ul>
       </div>
+
+      <figure class="frame frame-band"><svg class="ghost" aria-hidden="true"><use href="#caret"/></svg><img src="img/careers-bench.jpg" alt="A Draper engineer probing a wired assembly at an electronics bench" onerror="this.closest('.frame').classList.add('is-empty');this.remove()"><figcaption class="shotnote"><svg class="caret"><use href="#caret"/></svg>Engineer at an electronics bench</figcaption></figure>
     </div>
-  </nav>
+  </section>
 
-  <main id="main">
-
-    <!-- HERO -->
-    <section class="hero" aria-labelledby="hero-heading">
-      <div class="container">
-        <p class="hero-eyebrow label">UX &amp; Web Strategy · Accessibility · SEO</p>
-        <h1 class="hero-name" id="hero-heading">Stace Rice</h1>
-        <p class="hero-title">Senior digital experience leader who bridges design vision, front-end development, and accessibility expertise to build web properties that perform, include, and endure.</p>
-        <a href="#work" class="hero-cta" aria-label="View selected work">View Work</a>
-        <div class="hero-stats" aria-label="Key outcomes">
-          <div class="stat-item">
-            <span class="stat-number">67%</span>
-            <span class="stat-label">Organic traffic lift</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">60%</span>
-            <span class="stat-label">Faster production</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">93.8</span>
-            <span class="stat-label">SEO score vs 83.1 benchmark</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">53.2%</span>
-            <span class="stat-label">Email open rate</span>
-          </div>
+  <!-- ===== INDEPENDENCE ===== -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="independence">
+        <div>
+          <h2>Independence is the product.</h2>
+          <p>Draper is a nonprofit. We hold no product line to protect and answer to no shareholders, which means our technical recommendation is the one we actually believe — including when it is that the work shouldn't proceed.</p>
+          <p>That structure is why government, academic, and commercial partners bring us problems they can't hand to a vendor with something to sell.</p>
+          <a class="textlink" href="#about">
+            How Draper is structured
+            <svg class="caret"><use href="#caret"/></svg>
+          </a>
         </div>
-      </div>
-    </section>
 
-    <hr class="section-divider">
-
-    <!-- CASE STUDIES -->
-    <section id="work" aria-labelledby="work-heading">
-      <div class="container">
-        <p class="section-label label">Selected Work</p>
-        <h2 class="section-title" id="work-heading">Case Studies</h2>
-        <p class="section-intro">A selection of projects spanning SEO strategy, accessibility programs, content systems, and digital experience design.</p>
-        <div class="case-grid" role="list">
-
-          <a href="case-study-email.html" class="case-card" role="listitem" aria-label="Email Design System case study">
-            <p class="case-tag label">Content Systems · Email</p>
-            <h3 class="case-title">Email Design System</h3>
-            <p class="case-desc">Built a modular email component library that enabled non-technical marketing teams to assemble campaigns independently, eliminating developer bottlenecks and improving quality across the board.</p>
-            <div class="case-metric">
-              60% faster production
-              <span>30% fewer errors · 53.2% open rate</span>
-            </div>
-          </a>
-
-          <a href="case-study-aeo.html" class="case-card" role="listitem" aria-label="AEO and GEO Audit Agent case study">
-            <p class="case-tag label">AI Search · AEO · GEO</p>
-            <h3 class="case-title">AEO &amp; GEO Audit Agent</h3>
-            <p class="case-desc">Engineered an automated diagnostic engine that audits web content for Answer Engine Optimization (AEO) and Generative Engine Optimization (GEO), generating real-time LLM citability scores, JSON-LD schema, and technical Jira tickets.</p>
-            <div class="case-metric">
-              6 audit vectors
-              <span>Instant Jira tickets · Live URL &amp; HTML audit</span>
-            </div>
-          </a>
-
-          <a href="case-study-seo.html" class="case-card" role="listitem" aria-label="SEO and Search Visibility case study">
-            <p class="case-tag label">SEO · AEO · GEO</p>
-            <h3 class="case-title">Search Visibility Program</h3>
-            <p class="case-desc">Defined and executed an enterprise SEO strategy including technical optimization, site architecture, schema markup, and emerging AI search optimization across institutional web properties.</p>
-            <div class="case-metric">
-              67% organic traffic lift
-              <span>SEO score 93.8 vs industry benchmark 83.1</span>
-            </div>
-          </a>
-
-          <a href="case-study-accessibility.html" class="case-card" role="listitem" aria-label="Accessibility Program case study">
-            <p class="case-tag label">Accessibility · WCAG · Section 508</p>
-            <h3 class="case-title">Accessibility Remediation Program</h3>
-            <p class="case-desc">Established enterprise accessibility monitoring workflows, achieved WCAG compliance, and built a cross-functional education program that embedded inclusive design as a shared organizational value.</p>
-            <div class="case-metric">
-              +16 points accessibility score
-              <span>QA score raised from 84.3 to 97.2</span>
-            </div>
-          </a>
-
-          <a href="case-study-drupal.html" class="case-card" role="listitem" aria-label="Drupal API Integration case study">
-            <p class="case-tag label">Drupal · API Integration</p>
-            <h3 class="case-title">Student Workflow Modernization</h3>
-            <p class="case-desc">Implemented an Eduframe SIS API integration into Drupal 11, streamlining student enrollment workflows, reducing redundant communications, and improving system interoperability across departments.</p>
-            <div class="case-metric">
-              Reduced clicks to enroll
-              <span>Eliminated redundant email workflows</span>
-            </div>
-          </a>
-
-          <a href="case-study-governance.html" class="case-card" role="listitem" aria-label="Content Governance case study">
-            <p class="case-tag label">Governance · Web Operations</p>
-            <h3 class="case-title">Content Governance Framework</h3>
-            <p class="case-desc">Designed and implemented a unified content governance framework, intake workflow, and QA process across multiple divisions, enabling consistent brand standards and faster publishing at scale.</p>
-            <div class="case-metric">
-              QA score 97.2
-              <span>Consistent standards across 3 divisions</span>
-            </div>
-          </a>
-
-        </div>
-      </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- SKILLS -->
-    <section id="skills" aria-labelledby="skills-heading" style="background: var(--grey-light);">
-      <div class="container">
-        <p class="section-label label">Expertise</p>
-        <h2 class="section-title" id="skills-heading">Skills &amp; Tools</h2>
-        <div class="skills-grid">
-          <div class="skill-group">
-            <h3 class="skill-group-title label">CMS &amp; Development</h3>
-            <ul class="skill-list" role="list">
-              <li>Drupal 10 / 11</li>
-              <li>WordPress</li>
-              <li>JavaScript (ES Modules) · Vite</li>
-              <li>Python · REST APIs · CORS Proxy</li>
-              <li>Composer · Pantheon · Docker</li>
-              <li>Git · GitHub · HTML · CSS</li>
-            </ul>
-          </div>
-          <div class="skill-group">
-            <h3 class="skill-group-title label">SEO &amp; Optimization</h3>
-            <ul class="skill-list" role="list">
-              <li>Technical SEO</li>
-              <li>Answer Engine Optimization (AEO)</li>
-              <li>Generative Engine Optimization (GEO)</li>
-              <li>JSON-LD Schema (FAQ, Article, Speakable)</li>
-              <li>BrightEdge (Certified)</li>
-              <li>Google Search Console · GA4</li>
-              <li>A/B Testing · CRO</li>
-            </ul>
-          </div>
-          <div class="skill-group">
-            <h3 class="skill-group-title label">Accessibility</h3>
-            <ul class="skill-list" role="list">
-              <li>WCAG 2.1 / 2.2 AA</li>
-              <li>Section 508</li>
-              <li>Siteimprove</li>
-              <li>Digital document remediation</li>
-              <li>IAAP Member · CPWA Candidate</li>
-            </ul>
-          </div>
-          <div class="skill-group">
-            <h3 class="skill-group-title label">Design &amp; Strategy</h3>
-            <ul class="skill-list" role="list">
-              <li>UX Strategy · Journey Mapping</li>
-              <li>AI Web Tooling &amp; Diagnostic Engines</li>
-              <li>Jira Automation &amp; Dev Workflows</li>
-              <li>Figma · Photoshop · Illustrator</li>
-              <li>Content Governance &amp; Web Ops</li>
-              <li>Cross-functional Team Leadership</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- ABOUT -->
-    <section id="about" aria-labelledby="about-heading">
-      <div class="container">
-        <p class="section-label label">Background</p>
-        <h2 class="section-title" id="about-heading">About</h2>
-        <div class="about-grid">
-          <div class="about-text">
-            <p>I am a senior digital experience leader with over 15 years of experience owning web strategy, accessibility programs, and content operations across complex, multi-stakeholder environments.</p>
-            <p>I work at the intersection of design, development, and strategy — comfortable moving between executive-level roadmap conversations and hands-on implementation. I am known for building systems and governance frameworks that outlast my direct involvement and give teams the tools to do their best work independently.</p>
-            <p>Accessibility is a through-line in everything I do, not as a compliance checkbox but as a foundational design principle. I am an active IAAP member currently pursuing my CPWA certification.</p>
-          </div>
-          <div class="about-credentials" aria-label="Education and certifications">
-            <div class="credential-item">
-              <p class="credential-title">Master of Arts, Digital Media</p>
-              <p class="credential-org">University of Denver</p>
-            </div>
-            <div class="credential-item">
-              <p class="credential-title">BrightEdge Certified</p>
-              <p class="credential-org">SEO · AEO · GEO</p>
-              <span class="credential-badge">Certified</span>
-            </div>
-            <div class="credential-item">
-              <p class="credential-title">CPWA Candidate</p>
-              <p class="credential-org">IAAP — International Association of Accessibility Professionals</p>
-              <span class="credential-badge">In Progress</span>
-            </div>
-            <div class="credential-item">
-              <p class="credential-title">Advanced Project Management</p>
-              <p class="credential-org">University of Chicago</p>
-            </div>
-            <div class="credential-item">
-              <p class="credential-title">Conscious Leadership &amp; Team Management</p>
-              <p class="credential-org">University of Chicago</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- CONTACT -->
-  <section id="contact" class="contact-section" aria-labelledby="contact-heading">
-    <div class="container">
-      <p class="section-label label">Get in Touch</p>
-      <h2 class="section-title" id="contact-heading">Let's Work Together</h2>
-      <p class="section-intro">Open to senior UX, web strategy, accessibility, and digital experience roles. Available for full-time, contract, and consulting engagements.</p>
-      <div class="contact-links">
-        <a href="mailto:stace.in.dev@gmail.com" class="contact-link" aria-label="Send email to Stace Rice">
-          ✉ stace.in.dev@gmail.com
-        </a>
-        <a href="https://linkedin.com/in/staceycrice" class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="View Stace Rice on LinkedIn (opens in new tab)">
-          ↗ LinkedIn
-        </a>
-
+        <figure class="frame frame-story" style="margin:0"><svg class="ghost" aria-hidden="true"><use href="#caret"/></svg><img src="img/about-people.jpg" alt="Draper employees gathered outside the Cambridge headquarters beneath the wordmark" onerror="this.closest('.frame').classList.add('is-empty');this.remove()"><figcaption class="shotnote"><svg class="caret"><use href="#caret"/></svg>Employees outside 555 Technology Square</figcaption></figure>
       </div>
     </div>
   </section>
 
-  <footer role="contentinfo">
-    <div class="container">
-      <p>© 2026 Stace Rice · Built with semantic HTML and CSS · WCAG 2.1 AA compliant</p>
+  <!-- ===== HERITAGE ===== -->
+  <section class="section section-tint" id="heritage">
+    <div class="wrap">
+      <div class="heritage">
+        <figure class="frame frame-museum" style="margin:0"><svg class="ghost" aria-hidden="true"><use href="#caret"/></svg><img src="img/heritage-lecture.jpg" alt="Two men presenting orbital diagrams and an aircraft model to a seated audience in the 1950s" onerror="this.closest('.frame').classList.add('is-empty');this.remove()"><figcaption class="shotnote"><svg class="caret"><use href="#caret"/></svg>Archive — instrumentation lecture, 1950s</figcaption></figure>
+        <div>
+          <h2>The guidance system that flew Apollo was designed here.</h2>
+          <p>Draper began as an instrumentation laboratory at MIT and became an independent nonprofit in 1973. The problem it was founded on — knowing where you are when nothing outside can tell you — is the same one its engineers work on today, in vehicles that hadn't been imagined then.</p>
+          <p>That continuity is the point. Programs that take fifteen years to reach the field need an institution built to still be here.</p>
+          <div class="museum">
+            <h3><svg class="caret"><use href="#caret"/></svg>The Draper Museum</h3>
+            <p>Flight hardware, guidance computers, and archive holdings from six decades of the work, open to visitors at 555 Technology Square.</p>
+            <a class="textlink" href="#heritage">Plan a visit <svg class="caret"><use href="#caret"/></svg></a>
+          </div>
+        </div>
+      </div>
     </div>
-  </footer>
+  </section>
+
+</main>
+
+<footer class="foot" id="partner">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <span class="wordmark">
+        <svg class="logo" viewBox="0 0 1800 219" preserveAspectRatio="xMinYMid meet" aria-hidden="true" focusable="false"><use href="#draper"/></svg>
+        </span>
+        <address>
+          555 Technology Square<br>
+          Cambridge, MA 02139
+        </address>
+      </div>
+
+      <div>
+        <h3>Work with us</h3>
+        <ul>
+          <li><a href="#partner">Start a project</a></li>
+          <li><a href="#partner">Technology licensing</a></li>
+          <li><a href="#partner">DraperSPARX</a></li>
+          <li><a href="#partner">Suppliers</a></li>
+          <li><a href="#partner">University collaboration</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="#work">Our work</a></li>
+          <li><a href="#research">Research library</a></li>
+          <li><a href="#news">Newsroom</a></li>
+          <li><a href="#about">Draper Museum</a></li>
+          <li><a href="#about">Our history</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Join us</h3>
+        <ul>
+          <li><a href="#careers">Open roles</a></li>
+          <li><a href="#careers">Draper Scholars</a></li>
+          <li><a href="#careers">Internships</a></li>
+          <li><a href="#careers">Veterans</a></li>
+          <li><a href="#careers">Life at Draper</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-base">
+      <span>Concept prototype — Stacey Rice</span>
+      <span><a href="#">Accessibility statement</a> &nbsp; <a href="#">Privacy</a> &nbsp; <a href="#">Contact</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  var btn = document.getElementById('menuBtn');
+  var nav = document.getElementById('nav');
+  btn.addEventListener('click', function () {
+    var open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+
+  // Research facets — single-select demo
+  var facets = document.querySelectorAll('.facet');
+  facets.forEach(function (f) {
+    f.addEventListener('click', function () {
+      facets.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+      f.setAttribute('aria-pressed', 'true');
+    });
+  });
+</script>
 
 </body>
 </html>
