@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Draper Web Strategy & Prototype case study — Stace Rice">
+  <title>Draper Web Strategy & Prototype · Stace Rice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#1B2A4A;--slate:#2E4A7A;--teal:#2ABFBF;--teal-text:#147070;--grey-mid:#8A9BB0;--grey-light:#F0F2F5;--white:#FFFFFF;--text:#1B2A4A;--text-muted:#5A6A82;--radius:4px;--max-w:1100px;--gap:clamp(2rem,5vw,4rem);}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;font-size:1rem;line-height:1.7;color:var(--text);background:var(--white);}
+    img{max-width:100%;display:block;border-radius:var(--radius);}
+    a{color:inherit;text-decoration:underline;}
+    a:hover{text-decoration:none;}
+    a:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:var(--radius);text-decoration:none;}
+    .skip-link{position:absolute;top:-100%;left:1rem;background:var(--teal);color:var(--white);padding:0.5rem 1rem;border-radius:var(--radius);font-weight:600;z-index:9999;text-decoration:none;}
+    .skip-link:focus{top:1rem;}
+    .container{width:100%;max-width:var(--max-w);margin:0 auto;padding:0 clamp(1.25rem,5vw,3rem);}
+    nav{position:sticky;top:0;background:var(--white);border-bottom:1px solid var(--grey-light);z-index:100;}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;}
+    .nav-logo{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--navy);text-decoration:none;}
+    .nav-links{display:flex;gap:2rem;list-style:none;}
+    .nav-links a{font-size:0.875rem;font-weight:500;color:var(--text-muted);text-decoration:none;letter-spacing:0.03em;text-transform:uppercase;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--teal-text);}
+    .case-hero{padding:clamp(3rem,8vw,6rem) 0 clamp(2rem,5vw,4rem);border-bottom:1px solid var(--grey-light);}
+    .back-link{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.85rem;font-weight:500;color:var(--text-muted);text-decoration:none;margin-bottom:2rem;transition:color 0.2s;}
+    .back-link:hover{color:var(--teal-text);}
+    .label{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal-text);}
+    .case-tag{margin-bottom:1rem;display:block;}
+    .case-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.5rem);color:var(--navy);line-height:1.1;margin-bottom:1.25rem;}
+    .case-hero-desc{font-size:1.1rem;color:var(--text-muted);max-width:640px;}
+    .metrics-bar{display:flex;flex-wrap:wrap;gap:2rem;padding:clamp(1.5rem,4vw,2.5rem) 0;border-bottom:1px solid var(--grey-light);}
+    .metric-number{font-family:'DM Serif Display',serif;font-size:clamp(1.75rem,3vw,2.25rem);color:var(--slate);display:block;line-height:1;}
+    .metric-label{font-size:0.78rem;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);display:block;margin-top:0.2rem;}
+    .case-body{padding:var(--gap) 0;}
+    .case-grid{display:grid;grid-template-columns:2fr 1fr;gap:4rem;align-items:start;}
+    .case-content section{margin-bottom:2.5rem;}
+    .case-content h2{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:0.75rem;}
+    .case-content p{color:var(--text-muted);margin-bottom:0.75rem;font-size:1rem;}
+    .case-content ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:0.75rem;}
+    .case-content ul li{color:var(--text-muted);padding-left:1.25rem;position:relative;font-size:1rem;}
+    .case-content ul li::before{content:'→';position:absolute;left:0;color:var(--teal-text);font-size:0.85rem;top:0.1rem;}
+    .case-sidebar{position:sticky;top:84px;display:flex;flex-direction:column;gap:1.5rem;}
+    .sidebar-card{background:var(--grey-light);border-radius:var(--radius);padding:1.5rem;}
+    .sidebar-card h3{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal-text);margin-bottom:1rem;}
+    .sidebar-card ul{list-style:none;display:flex;flex-direction:column;gap:0.4rem;}
+    .sidebar-card ul li{font-size:0.875rem;color:var(--text-muted);}
+    .sidebar-cta{background:var(--navy);border-radius:var(--radius);padding:1.5rem;}
+    .sidebar-cta h3{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:0.75rem;}
+    .sidebar-cta p{font-size:0.875rem;color:var(--grey-mid);margin-bottom:1rem;}
+    .sidebar-cta a{display:inline-block;background:var(--teal);color:var(--navy);font-size:0.875rem;font-weight:600;padding:0.6rem 1.25rem;border-radius:var(--radius);text-decoration:none;transition:opacity 0.2s;}
+    .sidebar-cta a:hover{opacity:0.85;text-decoration:none;}
+    .screenshot-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0;}
+    .screenshot-grid img{width:100%;height:auto;border:1px solid var(--grey-light);}
+    .screenshot-full{margin:1.5rem 0;}
+    .screenshot-full img{width:100%;height:auto;border:1px solid var(--grey-light);}
+    figcaption{font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;margin-bottom:1.5rem;line-height:1.5;}
+    .finding-block{background:var(--grey-light);border-radius:var(--radius);padding:1.25rem;margin:1.5rem 0;border-left:3px solid var(--teal-text);}
+    .finding-block p{color:var(--text-muted);font-size:0.9rem;margin:0;}
+    .finding-block strong{color:var(--navy);}
+    .contrast-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.85rem;}
+    .contrast-table th{text-align:left;padding:0.5rem 0.75rem;font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);border-bottom:2px solid var(--grey-light);}
+    .contrast-table td{padding:0.5rem 0.75rem;border-bottom:1px solid var(--grey-light);color:var(--text-muted);}
+    .contrast-table tr:last-child td{border-bottom:none;}
+    .pass{color:#0F6E56;font-weight:600;}
+    .fail{color:#A32D2D;font-weight:600;}
+    .next-cases{background:var(--grey-light);padding:var(--gap) 0;}
+    .next-cases h2{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:1.5rem;}
+    .next-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:1rem;}
+    .next-card{background:var(--white);border-radius:var(--radius);padding:1.5rem;text-decoration:none;color:inherit;border:1px solid transparent;transition:border-color 0.2s,transform 0.2s;display:block;}
+    .next-card:hover{border-color:var(--teal);transform:translateY(-2px);text-decoration:none;}
+    .next-card-tag{display:block;margin-bottom:0.5rem;}
+    .next-card-title{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--navy);}
+    footer{background:var(--navy);padding:1.5rem 0;text-align:center;}
+    footer p{font-size:0.8rem;color:var(--grey-mid);}
+    @media(max-width:768px){.nav-links{display:none;}.case-grid{grid-template-columns:1fr;}.case-sidebar{position:static;}.metrics-bar{gap:1.25rem;}.screenshot-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <nav aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo" aria-label="Stace Rice home">Stace Rice</a>
+        <ul class="nav-links" role="list">
+          <li><a href="index.html#work">Work</a></li>
+          <li><a href="index.html#skills">Skills</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="case-hero">
+      <div class="container">
+        <a href="index.html#work" class="back-link" aria-label="Back to all case studies">← All Work</a>
+        <span class="case-tag label">Strategy · UX · Accessibility · Front-End</span>
+        <h1>Draper Web Strategy &amp; Prototype</h1>
+        <p class="case-hero-desc">A speculative redesign commissioned as part of a hiring process — covering platform investigation, information architecture, content strategy, AEO/GEO optimization, and a hand-coded prototype delivered as a live site across three pages.</p>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="metrics-bar" aria-label="Key outcomes">
+        <div class="metric"><span class="metric-number">4</span><span class="metric-label">Contrast failures identified &amp; corrected</span></div>
+        <div class="metric"><span class="metric-number">75</span><span class="metric-label">Decorative SVGs remediated for screen readers</span></div>
+        <div class="metric"><span class="metric-number">3</span><span class="metric-label">Pages built and delivered as a live prototype</span></div>
+        <div class="metric"><span class="metric-number">6</span><span class="metric-label">IA and content strategy recommendations</span></div>
+      </div>
+    </div>
+
+    <section class="case-body">
+      <div class="container">
+        <div class="case-grid">
+          <div class="case-content">
+
+            <section aria-labelledby="problem-heading">
+              <h2 id="problem-heading">The Brief</h2>
+              <p>Draper is an independent nonprofit R&amp;D company headquartered in Cambridge, MA — the organization that built the guidance computer that landed humans on the moon and continues to work on space systems, biomedical devices, and national defense. As part of a hiring process for a Web Production Specialist role, I was asked to assess draper.com and propose improvements, then build a prototype demonstrating my thinking.</p>
+              <p>Rather than starting with visual design, I started with a platform investigation — trying to understand what draper.com was actually built on and whether the existing architecture was serving Draper's audiences well. What I found shaped everything that followed.</p>
+            </section>
+
+            <section aria-labelledby="finding-heading">
+              <h2 id="finding-heading">The Platform Finding</h2>
+              <p>Examining draper.com's asset URLs, I found they pointed to a CloudFront host that also serves Intel, Chimera Investment, and Palmer Square Capital — all public companies using investor relations platforms. The accessibility statement on draper.com included boilerplate about known delays for earnings webcasts and SEC filings. Draper holds no earnings calls and files nothing with the SEC.</p>
+
+              <div class="finding-block">
+                <p><strong>The site was not underdesigned — it was on the wrong tool.</strong> The information architecture was organized like an investor relations site because the platform was built for investor sites. An R&D organization's actual needs — a program portfolio, a research library, a clear path in for partners, a proper recruiting experience — were not present because the platform was never designed for them.</p>
+              </div>
+
+              <p>This finding shaped the strategic recommendation: a migration to Drupal 11 on Acquia Cloud, which holds FedRAMP authorization — an alignment defensible for an organization holding CMMC Level 2 certification and serving federal customers. Drupal's entity and taxonomy system is also built for the deeply interrelated structured content a research organization needs, in a way a commercial investor relations platform is not.</p>
+            </section>
+
+            <section aria-labelledby="ia-heading">
+              <h2 id="ia-heading">Information Architecture</h2>
+              <p>The existing navigation was organized like an org chart — structured around how Draper is organized internally rather than how four very different audiences approach it. A government program manager, a graduate student, a commercial partner, and a journalist were all entering through the same front door with no differentiation.</p>
+              <p>The proposed IA made six structural changes:</p>
+              <ul role="list">
+                <li>Merged Capabilities and Market Areas into one navigable matrix so visitors can enter from either axis</li>
+                <li>Created an Our Work section — a program and project library that does not currently exist anywhere on the site</li>
+                <li>Added a searchable Research library for peer-reviewed papers, patents, and technical reports — the most citable content an R&D organization can publish</li>
+                <li>Unified Careers and Education Programs into one talent pipeline since they serve the same audience at different stages</li>
+                <li>Brought DraperSPARX and the partner pathway out of the utility bar into a proper navigation item</li>
+                <li>Created a dedicated Newsroom to replace scattered press release content</li>
+              </ul>
+            </section>
+
+            <figure>
+              <div class="screenshot-full">
+                <img src="draper-homepage-hero.png" alt="Prototype homepage showing the headline The hardest problems don't fit in one discipline against a split layout with a researcher in a Draper lab coat working at equipment. Navigation includes What we do, Our work, Research, Partner with us, About, Newsroom, and a Careers button in Draper orange." loading="lazy">
+              </div>
+              <figcaption>Homepage hero: the headline and split layout were designed to lead with Draper's distinctive identity rather than the generic dark-ground aesthetic used by every competitor in the space.</figcaption>
+            </figure>
+
+            <section aria-labelledby="design-heading">
+              <h2 id="design-heading">Design System</h2>
+              <p>The design system was built around one device Draper already owns: the caret from the wordmark. It points somewhere, it appears in every approved brand context, and it survives across a microfluidics photograph and a spacecraft render without losing coherence. Using it as the structural device across the site — wayfinding markers, link affordances, breadcrumb separators, section indicators, button icons — means one shape does the work that generic chevrons do on every other site.</p>
+              <p>Under the hood the caret is a single SVG symbol referenced everywhere, giving one source of truth across the entire prototype. The wordmark's caret color is a CSS custom property covering both the dark-ground and orange-ground versions the brand guide requires.</p>
+              <p>Every competitor — Lincoln Lab, APL, MITRE, Aerospace Corporation — lands in the same place: navy, dark grounds, hexagon meshes. Draper's own color is a hot orange on a light ground. Following the existing guidelines produces a site nobody could confuse with a competitor's.</p>
+            </section>
+
+            <figure>
+              <div class="screenshot-grid">
+                <img src="draper-homepage-work.png" alt="Homepage section titled The work is the argument showing four market area cards — Biotechnology Systems, Electronic Systems, Strategic Systems, and Space Systems — each with a photograph and a recent work example." loading="lazy">
+                <img src="draper-capability.png" alt="Capability page for Navigation without GPS showing the headline, a descriptive paragraph with a left orange border, three capability tags, and secondary navigation tabs for Overview, How we approach it, Where its applied, Publications, Who works on this, and Related capabilities." loading="lazy">
+              </div>
+              <figcaption>Left: The work is the argument — four market areas each anchored to a recent program, demonstrating capability through evidence rather than assertion. Right: Capability page template with in-page navigation for deep content.</figcaption>
+            </figure>
+
+            <section aria-labelledby="aeo-heading">
+              <h2 id="aeo-heading">AEO and SEO Strategy</h2>
+              <p>The way people find a defense R&amp;D organization has changed. A program manager wondering who does microphysiological systems work for BARDA is as likely to ask an AI assistant as search Google. To appear in those answers, content needs to be structured so AI systems can cite it — and draper.com currently has almost none of that content. Press releases mostly, which announce things rather than explain them.</p>
+              <ul role="list">
+                <li>Publications library as the primary citation engine — papers, patents, and technical reports are the most citable content an R&D organization publishes</li>
+                <li>Structured data across the board — ScholarlyArticle, JobPosting, FAQPage, and Organization schema implemented throughout</li>
+                <li>Each capability page opens with a direct, extractable answer before the narrative</li>
+                <li>Entity consistency across the site — Draper Laboratory, Draper Associates, and Draper Startup House all compete for the same search term</li>
+              </ul>
+            </section>
+
+            <figure>
+              <div class="screenshot-full">
+                <img src="draper-research.png" alt="Research library page on a dark background titled Published, cited, and open to read with a search bar and filter tabs for All, Peer-reviewed, Patents, Technical reports, and Conference. Three publication titles are listed with their type and market area." loading="lazy">
+              </div>
+              <figcaption>Research library: peer-reviewed papers, patents, and technical reports searchable in one place for the first time. The dark ground distinguishes this section as a reference resource and creates a visual anchor within the site.</figcaption>
+            </figure>
+
+            <section aria-labelledby="accessibility-heading">
+              <h2 id="accessibility-heading">Accessibility</h2>
+              <p>Every color pair in the prototype was measured before publishing. Four failed — all were corrected before the prototype went live. The most significant was the focus ring inside the orange careers band: an orange ring on an orange background produced a contrast ratio of 1.15:1, effectively invisible to anyone tabbing through the page. It would look fine visually while completely failing keyboard users.</p>
+
+              <table class="contrast-table" aria-label="Contrast ratio measurements for key color pairs">
+                <thead>
+                  <tr>
+                    <th scope="col">Pair</th>
+                    <th scope="col">Ratio</th>
+                    <th scope="col">Result</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Orange focus ring on orange field</td>
+                    <td>1.15:1</td>
+                    <td class="fail">Fail</td>
+                    <td>Changed to black focus ring (6.04:1)</td>
+                  </tr>
+                  <tr>
+                    <td>Draper Orange on white (body copy)</td>
+                    <td>3.42:1</td>
+                    <td class="fail">Fail</td>
+                    <td>Orange reserved for display only; body copy uses Draper Black</td>
+                  </tr>
+                  <tr>
+                    <td>White text on Draper Orange</td>
+                    <td>3.42:1</td>
+                    <td class="fail">Fail</td>
+                    <td>Changed to Draper Black on orange (14.7:1)</td>
+                  </tr>
+                  <tr>
+                    <td>Light grey text on white</td>
+                    <td>2.8:1</td>
+                    <td class="fail">Fail</td>
+                    <td>Darkened to mid-grey (4.6:1)</td>
+                  </tr>
+                  <tr>
+                    <td>Draper Black on white</td>
+                    <td>19.5:1</td>
+                    <td class="pass">Pass</td>
+                    <td>No change</td>
+                  </tr>
+                  <tr>
+                    <td>White on dark navy</td>
+                    <td>14.2:1</td>
+                    <td class="pass">Pass</td>
+                    <td>No change</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <p>Seventy-five decorative caret SVGs were given <code>aria-hidden="true"</code> before the prototype went live. Inline SVG without that attribute is announced by screen readers as an unnamed graphic, which would mean an interruption before every link and heading on the page. The fix is one attribute but the audit to find it requires actually testing with assistive technology.</p>
+
+              <p>Outstanding work documented transparently in the strategy: reflow at 320px and 400% zoom, text-spacing override testing, screen reader output verification, and full keyboard operation audit including focus management for the mobile menu. These were identified and scoped honestly rather than claimed as complete.</p>
+            </section>
+
+            <figure>
+              <div class="screenshot-full">
+                <img src="draper-careers.png" alt="Careers page on Draper orange background with headline Bring us a problem you can't stop thinking about, a description of the Draper Scholars program, and a list of open positions including GNC Systems Engineer, Microfluidics Research Scientist, Embedded Software Engineer, and Draper Scholars Program." loading="lazy">
+              </div>
+              <figcaption>Careers section: the orange background creates a strong visual anchor and signal of energy. The Draper Scholars program is surfaced alongside open positions to unify the talent pipeline into one experience.</figcaption>
+            </figure>
+
+            <section aria-labelledby="outcome-heading">
+              <h2 id="outcome-heading">The Outcome</h2>
+              <p>The prototype was delivered as a live three-page site and presented to a five-person panel including the Chief Communications Officer, Director of Creative Services, and the Supervisor of Media Relations. The strategic document accompanying it covered platform recommendation, information architecture, content model, AEO/GEO strategy, and an honest accounting of what was complete and what would need further validation in a real engagement.</p>
+              <p>The project demonstrated the full range of work this kind of role requires: platform investigation, strategic thinking, information architecture, design system development, hand-coded front-end implementation, accessibility auditing, and AEO/SEO strategy — delivered as working, inspectable code rather than a slide deck.</p>
+            </section>
+
+          </div>
+
+          <aside class="case-sidebar" aria-label="Project details">
+            <div class="sidebar-cta">
+              <h3>Live Prototype</h3>
+              <p>View the working prototype including the homepage, capability page, and strategy page.</p>
+              <a href="https://stacey1979.github.io/Draper/index.html" target="_blank" rel="noopener noreferrer">View Prototype →</a>
+            </div>
+            <div class="sidebar-card">
+              <h3>My Role</h3>
+              <ul role="list">
+                <li>Platform investigation</li>
+                <li>Information architecture</li>
+                <li>Content strategy</li>
+                <li>Visual design</li>
+                <li>Front-end development</li>
+                <li>Accessibility audit</li>
+                <li>AEO / SEO strategy</li>
+              </ul>
+            </div>
+            <div class="sidebar-card">
+              <h3>Tools &amp; Skills</h3>
+              <ul role="list">
+                <li>HTML · CSS · SVG</li>
+                <li>WCAG 2.1 AA</li>
+                <li>Contrast measurement</li>
+                <li>AEO / GEO strategy</li>
+                <li>Technical SEO</li>
+                <li>Schema markup</li>
+                <li>Drupal 11 recommendation</li>
+                <li>Acquia / FedRAMP</li>
+                <li>Claude (research &amp; strategy)</li>
+              </ul>
+            </div>
+            <div class="sidebar-card">
+              <h3>Context</h3>
+              <ul role="list">
+                <li>Speculative redesign</li>
+                <li>Hiring process project</li>
+                <li>Draper Laboratory</li>
+                <li>Cambridge, MA</li>
+                <li>Delivered 2026</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="next-cases" aria-labelledby="next-heading">
+    <div class="container">
+      <h2 id="next-heading">More Work</h2>
+      <div class="next-grid">
+        <a href="case-study-email.html" class="next-card"><span class="next-card-tag label">Content Systems · Email</span><span class="next-card-title">Email Design System</span></a>
+        <a href="case-study-seo.html" class="next-card"><span class="next-card-tag label">SEO · AEO · GEO</span><span class="next-card-title">Search Visibility Program</span></a>
+        <a href="case-study-accessibility.html" class="next-card"><span class="next-card-tag label">Accessibility · WCAG</span><span class="next-card-title">Accessibility Remediation Program</span></a>
+        <a href="case-study-drupal.html" class="next-card"><span class="next-card-tag label">Drupal · API</span><span class="next-card-title">Student Workflow Modernization</span></a>
+        <a href="case-study-governance.html" class="next-card"><span class="next-card-tag label">Governance · Web Ops</span><span class="next-card-title">Content Governance Framework</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <p>© 2026 Stace Rice · Built with semantic HTML and CSS · WCAG 2.1 AA compliant</p>
+    </div>
+  </footer>
+</body>
+</html>
